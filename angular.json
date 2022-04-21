@@ -120,5 +120,8 @@
       }
     }
   },
-  "defaultProject": "ng-dynamic-form"
+  "defaultProject": "ng-dynamic-form",
+  "cli": {
+    "analytics": false
+  }
 }
