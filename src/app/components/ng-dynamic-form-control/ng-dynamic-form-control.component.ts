@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, Type } from '@angular/core';
 import { Types } from 'src/app/enums/Types';
 import { IControl } from 'src/app/models/IControl';
 import { IDynamicControl } from 'src/app/models/IDynamicControl';
@@ -50,11 +50,11 @@ export class NgDynamicFormControlComponent implements OnInit {
                                 }"
                 class="form-control">
           </div>
-      `;
+        `;
           this.controlCounter++;
           this.generatedControls.push(id);
         }
-        if (control.type === Types.Dropdown) {
+        else if (control.type === Types.Dropdown) {
           let options = '<option selected>Select</option>';
           const dropdownOptions = control.dropdownOptions;
           dropdownOptions.forEach(x => {
@@ -85,6 +85,41 @@ export class NgDynamicFormControlComponent implements OnInit {
           this.controlCounter++;
           this.generatedControls.push(id);
         }
+        else if(control.type === Types.Radio) {
+          let radioButtons = '';
+          const radioButtonOptions = control.radioButtonOptions;
+          const id = `_df_control_n_${this.controlCounter}`;
+          radioButtonOptions.values.forEach(x => {
+            radioButtons += `
+              <input
+                id="${id}${this._ID_FORM_CONTROL}"
+                type='radio' 
+                name=${control.name} 
+                value=${x.value} 
+                ${control.validators.required ? 'required' : ''}
+                _dynamic_control_validators="
+                                  ${
+                                    control.validators.required
+                                      ? 'required:true'
+                                      : ''
+                                  }"
+              /> ${x.key} <br />
+            `
+          })
+          html += `
+          <div id="${id}${this._ID_FORM_GROUP}" class="${
+              this._DIV_FORM_GROUP
+            } form-group">
+              <label for="">${control.label}</label>
+              <br />
+              ${radioButtons}
+          </div>
+        `;
+          this.controlCounter++;
+          this.generatedControls.push(id);
+        }
+        else if(control.type === Types.Checkbox) {}
+        else {}
       });
       html += `
         <button type="submit" class="mt-3 btn btn-primary">

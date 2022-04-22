@@ -6,7 +6,6 @@ import { IDynamicControl } from '../models/IDynamicControl';
 })
 export class UserService {
   constructor() {}
-
   getDynamicControl() {
     // Assume that this JSON data is comming from server.
     const _controls: IDynamicControl = {
@@ -24,17 +23,24 @@ export class UserService {
           ],
           validators: {
             required: true,
-            regex: ''
+            regex: '',
           },
         },
         {
-          type: Types.Textbox,
-          label: 'Last Name',
-          name: 'lastName',
+          type: Types.Radio,
+          label: 'Gender',
+          name: 'Gender',
           value: '',
+          radioButtonOptions: {
+              values: [
+                { key: "Male" , value: '0' },
+                { key: "Female", value: '1' },
+                { key: "Other", value: '3' },
+              ],
+            },
           validators: {
             required: true,
-            regex: ''
+            regex: '',
           },
         },
         {
@@ -44,7 +50,7 @@ export class UserService {
           value: '',
           validators: {
             required: true,
-            regex: ''
+            regex: '',
           },
         },
         {
@@ -54,7 +60,7 @@ export class UserService {
           value: '',
           validators: {
             required: true,
-            regex: ''
+            regex: '',
           },
         },
         {
@@ -64,7 +70,7 @@ export class UserService {
           value: '',
           validators: {
             required: true,
-            regex: ''
+            regex: '',
           },
         },
       ],
