@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Types } from '../enums/Types';
 import { IDynamicControl } from '../models/IDynamicControl';
 @Injectable({
   providedIn: 'root',
@@ -11,15 +12,23 @@ export class UserService {
     const _controls: IDynamicControl = {
       controls: [
         {
-          label: 'First Name',
+          type: Types.Dropdown,
+          label: 'Dropdown',
           name: 'firstName',
           value: '',
+          dropdownOptions: [
+            { key: 'Option1', value: '0' },
+            { key: 'Option2', value: '1' },
+            { key: 'Option3', value: '2' },
+            { key: 'Option4', value: '3' },
+          ],
           validators: {
             required: true,
             regex: ''
           },
         },
         {
+          type: Types.Textbox,
           label: 'Last Name',
           name: 'lastName',
           value: '',
@@ -29,6 +38,7 @@ export class UserService {
           },
         },
         {
+          type: Types.Textbox,
           label: 'Email',
           name: 'email',
           value: '',
@@ -38,6 +48,7 @@ export class UserService {
           },
         },
         {
+          type: Types.Textbox,
           label: 'Phone',
           name: 'phone',
           value: '',
@@ -47,6 +58,7 @@ export class UserService {
           },
         },
         {
+          type: Types.Textbox,
           label: 'Address',
           name: 'address',
           value: '',
