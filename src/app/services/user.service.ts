@@ -44,10 +44,15 @@ export class UserService {
           },
         },
         {
-          type: Types.Textbox,
-          label: 'Email',
-          name: 'email',
+          type: Types.Checkbox,
+          label: 'Subscribe To',
+          name: 'subscribeTo',
           value: '',
+          checkboxOptions: [
+            { key: 'mailing list', value: '0' },
+            { key: 'news', value: '1' },
+            { key: 'Nothing', value: '3' }
+          ],
           validators: {
             required: true,
             regex: '',

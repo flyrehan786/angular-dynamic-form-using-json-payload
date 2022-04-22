@@ -118,7 +118,39 @@ export class NgDynamicFormControlComponent implements OnInit {
           this.controlCounter++;
           this.generatedControls.push(id);
         }
-        else if(control.type === Types.Checkbox) {}
+        else if(control.type === Types.Checkbox) {
+          let checkboxes = '';
+          const checkboxOptions = control.checkboxOptions;
+          const id = `_df_control_n_${this.controlCounter}`;
+          checkboxOptions.forEach(x => {
+            checkboxes += `
+              <input
+                id="${id}${this._ID_FORM_CONTROL}"
+                type='checkbox' 
+                name=${control.name} 
+                value=${x.value} 
+                ${control.validators.required ? 'required' : ''}
+                _dynamic_control_validators="
+                                  ${
+                                    control.validators.required
+                                      ? 'required:true'
+                                      : ''
+                                  }"
+              /> ${x.key} <br />
+            `
+          })
+          html += `
+          <div id="${id}${this._ID_FORM_GROUP}" class="${
+              this._DIV_FORM_GROUP
+            } form-group">
+              <label for="">${control.label}</label>
+              <br />
+              ${checkboxes}
+          </div>
+        `;
+          this.controlCounter++;
+          this.generatedControls.push(id);
+        }
         else {}
       });
       html += `
