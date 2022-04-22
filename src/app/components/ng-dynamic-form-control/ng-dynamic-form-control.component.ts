@@ -55,7 +55,7 @@ export class NgDynamicFormControlComponent implements OnInit {
           this.generatedControls.push(id);
         }
         else if (control.type === Types.Dropdown) {
-          let options = '<option selected>Select</option>';
+          let options = '<option value="" selected>Select</option>';
           const dropdownOptions = control.dropdownOptions;
           dropdownOptions.forEach(x => {
             options += `<option value=${x.value}>${x.key}</option>`
