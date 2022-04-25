@@ -16,6 +16,7 @@ import { IValidationFailed } from 'src/app/models/IValidationFailed';
   styleUrls: ['./ng-dynamic-form-control.component.css'],
 })
 export class NgDynamicFormControlComponent implements OnInit {
+  @Input() form_title: string;
   @Input() input_dynamicControls: IDynamicControl;
   @Output() onSubmit = new EventEmitter();
   public _FORM_ELEMENT = '_df-dynamic-form'; // Form Id;

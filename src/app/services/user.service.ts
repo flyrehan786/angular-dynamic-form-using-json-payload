@@ -9,6 +9,7 @@ export class UserService {
   getDynamicControl() {
     // Assume that this JSON data is comming from server.
     const _controls: IDynamicControl = {
+      formTitle: "User Registration",
       controls: [
         {
           type: Types.Dropdown,
