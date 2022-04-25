@@ -1,4 +1,11 @@
-import { Component, EventEmitter, Input, OnInit, Output, Type } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  Type,
+} from '@angular/core';
 import { Types } from 'src/app/enums/Types';
 import { IControl } from 'src/app/models/IControl';
 import { IDynamicControl } from 'src/app/models/IDynamicControl';
@@ -34,8 +41,8 @@ export class NgDynamicFormControlComponent implements OnInit {
           const id = `_df_control_n_${this.controlCounter}`;
           html += `
           <div id="${id}${this._ID_FORM_GROUP}" class="${
-              this._DIV_FORM_GROUP
-            } form-group">
+            this._DIV_FORM_GROUP
+          } form-group">
               <label for="">${control.label}</label>
               <input
                 id="${id}${this._ID_FORM_CONTROL}"
@@ -53,18 +60,17 @@ export class NgDynamicFormControlComponent implements OnInit {
         `;
           this.controlCounter++;
           this.generatedControls.push(id);
-        }
-        else if (control.type === Types.Dropdown) {
+        } else if (control.type === Types.Dropdown) {
           let options = '<option value="" selected>Select</option>';
           const dropdownOptions = control.dropdownOptions;
-          dropdownOptions.forEach(x => {
-            options += `<option value=${x.value}>${x.key}</option>`
-          })          
+          dropdownOptions.forEach((x) => {
+            options += `<option value=${x.value}>${x.key}</option>`;
+          });
           const id = `_df_control_n_${this.controlCounter}`;
           html += `
           <div id="${id}${this._ID_FORM_GROUP}" class="${
-              this._DIV_FORM_GROUP
-            } form-group">
+            this._DIV_FORM_GROUP
+          } form-group">
               <label for="">${control.label}</label>
               <select
                 id="${id}${this._ID_FORM_CONTROL}"
@@ -84,12 +90,11 @@ export class NgDynamicFormControlComponent implements OnInit {
       `;
           this.controlCounter++;
           this.generatedControls.push(id);
-        }
-        else if(control.type === Types.Radio) {
+        } else if (control.type === Types.Radio) {
           let radioButtons = '';
           const radioButtonOptions = control.radioButtonOptions;
           const id = `_df_control_n_${this.controlCounter}`;
-          radioButtonOptions.values.forEach(x => {
+          radioButtonOptions.values.forEach((x) => {
             radioButtons += `
               <input
                 id="${id}${this._ID_FORM_CONTROL}"
@@ -104,12 +109,10 @@ export class NgDynamicFormControlComponent implements OnInit {
                                       : ''
                                   }"
               /> ${x.key} <br />
-            `
-          })
+            `;
+          });
           html += `
-          <div id="${id}${this._ID_FORM_GROUP}" class="${
-              this._DIV_FORM_GROUP
-            } form-group">
+          <div id="${id}${this._ID_FORM_GROUP}" class="${this._DIV_FORM_GROUP} form-group">
               <label for="">${control.label}</label>
               <br />
               ${radioButtons}
@@ -117,18 +120,15 @@ export class NgDynamicFormControlComponent implements OnInit {
         `;
           this.controlCounter++;
           this.generatedControls.push(id);
-        }
-        else if(control.type === Types.Checkbox) {
+        } else if (control.type === Types.Checkbox) {
           let checkboxes = '';
-          const checkboxOptions = control.checkboxOptions;
           const id = `_df_control_n_${this.controlCounter}`;
-          checkboxOptions.forEach(x => {
             checkboxes += `
               <input
                 id="${id}${this._ID_FORM_CONTROL}"
                 type='checkbox' 
                 name=${control.name} 
-                value=${x.value} 
+                value=${control.value} 
                 ${control.validators.required ? 'required' : ''}
                 _dynamic_control_validators="
                                   ${
@@ -136,13 +136,10 @@ export class NgDynamicFormControlComponent implements OnInit {
                                       ? 'required:true'
                                       : ''
                                   }"
-              /> ${x.key} <br />
-            `
-          })
+              /> ${control.label} <br />
+            `;
           html += `
-          <div id="${id}${this._ID_FORM_GROUP}" class="${
-              this._DIV_FORM_GROUP
-            } form-group">
+          <div id="${id}${this._ID_FORM_GROUP}" class="${this._DIV_FORM_GROUP} form-group">
               <label for="">${control.label}</label>
               <br />
               ${checkboxes}
@@ -150,8 +147,8 @@ export class NgDynamicFormControlComponent implements OnInit {
         `;
           this.controlCounter++;
           this.generatedControls.push(id);
+        } else {
         }
-        else {}
       });
       html += `
         <button type="submit" class="mt-3 btn btn-primary">
@@ -181,20 +178,63 @@ export class NgDynamicFormControlComponent implements OnInit {
           const validators = inputElement.getAttribute(
             '_dynamic_control_validators'
           );
-          const splited = validators.split(',');
-          const analyzed: IValidationFailed[] = this.analyze(
-            splited,
-            inputElement['value'],
-            inputElement.getAttribute('name')
-          );
-          if (analyzed.length > 0) {
-            extracted.error.push(analyzed);
-          } else {
-            extracted.data.push({
-              title: inputElement.getAttribute('name'),
-              value: inputElement['value'],
-              validated: true,
-            });
+          if (
+            inputElement['type'] === 'text' ||
+            inputElement['type'] === 'select-one'
+          ) {
+            const splited = validators.split(',');
+            const analyzed: IValidationFailed[] = this.analyze(
+              splited,
+              inputElement['value'],
+              inputElement.getAttribute('name')
+            );
+            if (analyzed.length > 0) {
+              extracted.error.push(analyzed);
+            } else {
+              extracted.data.push({
+                title: inputElement.getAttribute('name'),
+                value: inputElement['value'],
+                validated: true,
+              });
+            }
+          } else if (inputElement['type'] === 'radio') {
+            const checked = document.querySelector(
+              `input[name=${inputElement.getAttribute('name')}]:checked`
+            );
+            const value = (checked ) ? checked['value'] : undefined;
+            const splited = validators.split(',');
+            const analyzed: IValidationFailed[] = this.analyze(
+              splited,
+              value,
+              inputElement.getAttribute('name')
+            );
+            if (analyzed.length > 0) {
+              extracted.error.push(analyzed);
+            } else {
+              extracted.data.push({
+                title: inputElement.getAttribute('name'),
+                value: value,
+                validated: true,
+              });
+            }
+          } else if (inputElement['type'] === 'checkbox') {
+            const checked = inputElement['checked'];
+            const splited = validators.split(',');
+            const analyzed: IValidationFailed[] = this.analyze(
+              splited,
+              checked,
+              inputElement.getAttribute('name')
+            );
+            if (analyzed.length > 0) {
+              extracted.error.push(analyzed);
+            } else {
+              extracted.data.push({
+                title: inputElement.getAttribute('name'),
+                value: checked,
+                validated: true,
+              });
+            }
+
           }
         } else console.log('Invalid dom-element id');
       }
@@ -209,7 +249,7 @@ export class NgDynamicFormControlComponent implements OnInit {
         const splited = trimmed.split(':');
         if (splited.length === 2) {
           if (JSON.parse(splited[1]) === true) {
-            if (value.length < 1) {
+            if (value === null || value === undefined || value.length < 1) {
               description.push({
                 title: title,
                 validatorName: splited[0],

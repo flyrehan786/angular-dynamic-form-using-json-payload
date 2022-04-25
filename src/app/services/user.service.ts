@@ -33,9 +33,9 @@ export class UserService {
           value: '',
           radioButtonOptions: {
               values: [
-                { key: "Male" , value: '0' },
+                { key: "Male" ,  value: '0' },
                 { key: "Female", value: '1' },
-                { key: "Other", value: '3' },
+                { key: "Other",  value: '2' },
               ],
             },
           validators: {
@@ -45,14 +45,29 @@ export class UserService {
         },
         {
           type: Types.Checkbox,
-          label: 'Subscribe To',
-          name: 'subscribeTo',
-          value: '',
-          checkboxOptions: [
-            { key: 'mailing list', value: '0' },
-            { key: 'news', value: '1' },
-            { key: 'Nothing', value: '3' }
-          ],
+          label: 'Subscribe to news-letters',
+          name: 'news-letters',
+          value: '0',
+          validators: {
+            required: true,
+            regex: '',
+          },
+        },
+        {
+          type: Types.Checkbox,
+          label: 'Subscribe To Mailing List',
+          name: 'mailing-list',
+          value: '0',
+          validators: {
+            required: true,
+            regex: '',
+          },
+        },
+        {
+          type: Types.Checkbox,
+          label: 'Subscribe To Mailing List',
+          name: 'mailing-list',
+          value: '0',
           validators: {
             required: true,
             regex: '',
