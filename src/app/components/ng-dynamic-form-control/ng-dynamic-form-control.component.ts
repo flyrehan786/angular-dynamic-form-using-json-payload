@@ -4,7 +4,6 @@ import {
   Input,
   OnInit,
   Output,
-  Type,
 } from '@angular/core';
 import { Types } from 'src/app/enums/Types';
 import { IControl } from 'src/app/models/IControl';
@@ -42,7 +41,7 @@ export class NgDynamicFormControlComponent implements OnInit {
           html += `
           <div id="${id}${this._ID_FORM_GROUP}" class="${
             this._DIV_FORM_GROUP
-          } form-group">
+          } form-group col-md-4">
               <label for="">${control.label}</label>
               <input
                 id="${id}${this._ID_FORM_CONTROL}"
@@ -70,7 +69,7 @@ export class NgDynamicFormControlComponent implements OnInit {
           html += `
           <div id="${id}${this._ID_FORM_GROUP}" class="${
             this._DIV_FORM_GROUP
-          } form-group">
+          } form-group col-md-4">
               <label for="">${control.label}</label>
               <select
                 id="${id}${this._ID_FORM_CONTROL}"
@@ -112,7 +111,7 @@ export class NgDynamicFormControlComponent implements OnInit {
             `;
           });
           html += `
-          <div id="${id}${this._ID_FORM_GROUP}" class="${this._DIV_FORM_GROUP} form-group">
+          <div id="${id}${this._ID_FORM_GROUP}" class="${this._DIV_FORM_GROUP} form-group col-md-4">
               <label for="">${control.label}</label>
               <br />
               ${radioButtons}
@@ -139,7 +138,7 @@ export class NgDynamicFormControlComponent implements OnInit {
               /> ${control.label} <br />
             `;
           html += `
-          <div id="${id}${this._ID_FORM_GROUP}" class="${this._DIV_FORM_GROUP} form-group">
+          <div id="${id}${this._ID_FORM_GROUP}" class="${this._DIV_FORM_GROUP} form-group col-md-4">
               <label for="">${control.label}</label>
               <br />
               ${checkboxes}
