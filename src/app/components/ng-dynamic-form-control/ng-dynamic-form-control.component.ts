@@ -37,12 +37,13 @@ export class NgDynamicFormControlComponent implements OnInit {
       const dynamicControls: IDynamicControl = this.input_dynamicControls;
       const controls: IControl[] = dynamicControls.controls;
       controls.forEach((control) => {
+        let controlBootstrapColSize = (control.bootstrapColSize) ? control.bootstrapColSize : 'col-md-12';
         if (control.type === Types.Textbox) {
           const id = `_df_control_n_${this.controlCounter}`;
           html += `
           <div id="${id}${this._ID_FORM_GROUP}" class="${
             this._DIV_FORM_GROUP
-          } form-group col-md-4">
+          } form-group ${controlBootstrapColSize}">
               <label for="">${control.label}</label>
               <input
                 id="${id}${this._ID_FORM_CONTROL}"
@@ -70,7 +71,7 @@ export class NgDynamicFormControlComponent implements OnInit {
           html += `
           <div id="${id}${this._ID_FORM_GROUP}" class="${
             this._DIV_FORM_GROUP
-          } form-group col-md-4">
+          } form-group ${controlBootstrapColSize}">
               <label for="">${control.label}</label>
               <select
                 id="${id}${this._ID_FORM_CONTROL}"
@@ -139,7 +140,7 @@ export class NgDynamicFormControlComponent implements OnInit {
               /> ${control.label} <br />
             `;
           html += `
-          <div id="${id}${this._ID_FORM_GROUP}" class="${this._DIV_FORM_GROUP} form-group col-md-4">
+          <div id="${id}${this._ID_FORM_GROUP}" class="${this._DIV_FORM_GROUP} form-group ${controlBootstrapColSize}">
               <label for="">${control.label}</label>
               <br />
               ${checkboxes}
@@ -151,9 +152,11 @@ export class NgDynamicFormControlComponent implements OnInit {
         }
       });
       html += `
-        <button type="submit" class="mt-3 btn btn-primary">
-          Submit
-        </button>`;
+        <p>
+          <button type="submit" class="mt-3 btn btn-primary">
+            Submit
+          </button>
+        </p>`;
       formElement.innerHTML = html;
     } else console.log('No form element found.');
   }

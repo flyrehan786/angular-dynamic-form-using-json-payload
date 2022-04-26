@@ -9,7 +9,8 @@ export interface IControl {
   value: string;
   dropdownOptions?: IDropdownOption[],
   radioButtonOptions?: IRadioButtonOptions,
-  validators: IValidator;
+  bootstrapColSize?: string,
+  validators: IValidator,
 }
 
 

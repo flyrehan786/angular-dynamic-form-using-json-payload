@@ -16,6 +16,7 @@ export class UserService {
           label: 'Dropdown',
           name: 'firstName',
           value: '',
+          bootstrapColSize: "col-md-4",
           dropdownOptions: [
             { key: 'Option1', value: '0' },
             { key: 'Option2', value: '1' },
@@ -32,6 +33,7 @@ export class UserService {
           label: 'Gender',
           name: 'Gender',
           value: '',
+          bootstrapColSize: "col-md-4",
           radioButtonOptions: {
               values: [
                 { key: "Male" ,  value: '0' },
@@ -49,6 +51,7 @@ export class UserService {
           label: 'Subscribe to news-letters',
           name: 'news-letters',
           value: '0',
+          bootstrapColSize: "col-md-4",
           validators: {
             required: true,
             regex: '',
@@ -59,6 +62,7 @@ export class UserService {
           label: 'Subscribe To Mailing List',
           name: 'mailing-list',
           value: '0',
+          bootstrapColSize: "col-md-4",
           validators: {
             required: true,
             regex: '',
@@ -69,6 +73,7 @@ export class UserService {
           label: 'Subscribe To Mailing List',
           name: 'mailing-list',
           value: '0',
+          bootstrapColSize: "col-md-4",
           validators: {
             required: true,
             regex: '',
@@ -79,6 +84,7 @@ export class UserService {
           label: 'Phone',
           name: 'phone',
           value: '',
+          bootstrapColSize: "col-md-4",
           validators: {
             required: true,
             regex: '',
@@ -89,6 +95,7 @@ export class UserService {
           label: 'Address',
           name: 'address',
           value: '',
+          bootstrapColSize: "col-md-4",
           validators: {
             required: true,
             regex: '',
