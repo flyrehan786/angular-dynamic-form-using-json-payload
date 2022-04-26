@@ -1,10 +1,4 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  OnInit,
-  Output,
-} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Types } from 'src/app/enums/Types';
 import { IControl } from 'src/app/models/IControl';
 import { IDynamicControl } from 'src/app/models/IDynamicControl';
@@ -37,13 +31,15 @@ export class NgDynamicFormControlComponent implements OnInit {
       const dynamicControls: IDynamicControl = this.input_dynamicControls;
       const controls: IControl[] = dynamicControls.controls;
       controls.forEach((control) => {
-        let controlBootstrapColSize = (control.bootstrapColSize) ? control.bootstrapColSize : 'col-md-12';
+        let controlBootstrapColSize = control.bootstrapColSize
+          ? control.bootstrapColSize
+          : 'col-md-12';
         if (control.type === Types.Textbox) {
           const id = `_df_control_n_${this.controlCounter}`;
           html += `
           <div id="${id}${this._ID_FORM_GROUP}" class="${
             this._DIV_FORM_GROUP
-          } form-group ${controlBootstrapColSize}">
+          } form-group ${controlBootstrapColSize} ">
               <label for="">${control.label}</label>
               <input
                 id="${id}${this._ID_FORM_CONTROL}"
@@ -98,6 +94,7 @@ export class NgDynamicFormControlComponent implements OnInit {
           radioButtonOptions.values.forEach((x) => {
             radioButtons += `
               <input
+                class="form-check-input"
                 id="${id}${this._ID_FORM_CONTROL}"
                 type='radio' 
                 name=${control.name} 
@@ -113,37 +110,38 @@ export class NgDynamicFormControlComponent implements OnInit {
             `;
           });
           html += `
-          <div id="${id}${this._ID_FORM_GROUP}" class="${this._DIV_FORM_GROUP} form-group col-md-4">
-              <label for="">${control.label}</label>
-              <br />
-              ${radioButtons}
-          </div>
+            <div id="${id}${this._ID_FORM_GROUP}" class="${this._DIV_FORM_GROUP} form-group col-md-4">
+            <label class="form-check-label" for="exampleRadios1">
+              ${control.label}
+            </label>
+              <div class="form-check">
+                ${radioButtons}
+              </div>
+            </div>
         `;
           this.controlCounter++;
           this.generatedControls.push(id);
         } else if (control.type === Types.Checkbox) {
           let checkboxes = '';
           const id = `_df_control_n_${this.controlCounter}`;
-            checkboxes += `
+          checkboxes += `
               <input
-                id="${id}${this._ID_FORM_CONTROL}"
-                type='checkbox' 
-                name=${control.name} 
-                value=${control.value} 
-                ${control.validators.required ? 'required' : ''}
-                _dynamic_control_validators="
-                                  ${
-                                    control.validators.required
-                                      ? 'required:true'
-                                      : ''
-                                  }"
-              /> ${control.label} <br />
-            `;
+                  id="${id}${this._ID_FORM_CONTROL}"
+                  type='checkbox' 
+                  name=${control.name} 
+                  value=${control.value} 
+                  ${control.validators.required ? 'required' : ''}
+                  _dynamic_control_validators="
+                                    ${
+                                      control.validators.required
+                                        ? 'required:true'
+                                        : ''
+                                    }"
+                />`;
           html += `
           <div id="${id}${this._ID_FORM_GROUP}" class="${this._DIV_FORM_GROUP} form-group ${controlBootstrapColSize}">
-              <label for="">${control.label}</label>
-              <br />
-              ${checkboxes}
+            ${checkboxes}
+            <label class="form-check-label" for="">${control.label}</label>
           </div>
         `;
           this.controlCounter++;
@@ -204,7 +202,7 @@ export class NgDynamicFormControlComponent implements OnInit {
             const checked = document.querySelector(
               `input[name=${inputElement.getAttribute('name')}]:checked`
             );
-            const value = (checked ) ? checked['value'] : undefined;
+            const value = checked ? checked['value'] : undefined;
             const splited = validators.split(',');
             const analyzed: IValidationFailed[] = this.analyze(
               splited,
@@ -237,7 +235,6 @@ export class NgDynamicFormControlComponent implements OnInit {
                 validated: true,
               });
             }
-
           }
         } else console.log('Invalid dom-element id');
       }
