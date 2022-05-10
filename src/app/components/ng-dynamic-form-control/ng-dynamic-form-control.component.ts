@@ -22,8 +22,7 @@ export class NgDynamicFormControlComponent implements OnInit {
   private generatedControls: string[] = [];
   title = 'df-dynamic-form';
   constructor() {}
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
   ngAfterViewInit(): void {
     let html = ``;
     const formElement: HTMLElement = document.getElementById(
@@ -167,14 +166,21 @@ export class NgDynamicFormControlComponent implements OnInit {
     );
     if (element.length > 0) {
       const extracted = this.extract(element);
-      console.log(extracted);
-      if(extracted.errors.length > 0) {
-        extracted.data.forEach(x => document.getElementById(x['id']).style.border = environment.defaultStyle.border)
-        extracted.errors.forEach(x => document.getElementById(x['id']).style.border = environment.validationFailed.border);
+      if (extracted.errors.length > 0) {
+        extracted.data.forEach((x) => {
+          document.getElementById(x['id']).style.border =
+            environment.defaultStyle.border;
+        });
+        extracted.errors.forEach((x) => {
+          const formControlId = x['id'];
+          const formControlElement = document.getElementById(formControlId);
+          formControlElement.style.border = environment.validationFailed.border;
+        });
       }
+      if (extracted.errors.length > 0) extracted.formIsValid = false;
+      else extracted.formIsValid = true;
       this.onSubmit.emit(extracted);
-    }
-    else console.log('No element found.');
+    } else console.log('No element found.');
   }
   private extract(elements: HTMLCollectionOf<Element>) {
     let extracted: IFormData = { errors: [], data: [] };
@@ -199,7 +205,7 @@ export class NgDynamicFormControlComponent implements OnInit {
               splited,
               inputElement['value'],
               inputElement.getAttribute('name'),
-              inputElement.getAttribute('id'),
+              inputElement.getAttribute('id')
             );
             if (analyzed.length > 0) {
               extracted.errors.push(analyzed[0]);
@@ -221,7 +227,7 @@ export class NgDynamicFormControlComponent implements OnInit {
               splited,
               value,
               inputElement.getAttribute('name'),
-              inputElement.getAttribute('id'),
+              inputElement.getAttribute('id')
             );
             if (analyzed.length > 0) {
               extracted.errors.push(analyzed[0]);
@@ -240,7 +246,7 @@ export class NgDynamicFormControlComponent implements OnInit {
               splited,
               checked,
               inputElement.getAttribute('name'),
-              inputElement.getAttribute('id'),
+              inputElement.getAttribute('id')
             );
             if (analyzed.length > 0) {
               extracted.errors.push(analyzed[0]);
@@ -258,7 +264,12 @@ export class NgDynamicFormControlComponent implements OnInit {
     } else console.log('Invalid dynamically-generated-controls info');
     return extracted;
   }
-  private analyze(validators: string[], value: string, title: string, id: string) {
+  private analyze(
+    validators: string[],
+    value: string,
+    title: string,
+    id: string
+  ) {
     let description: IValidationFailed[] = [];
     if (validators.length > 0) {
       validators.forEach((v) => {
@@ -273,7 +284,8 @@ export class NgDynamicFormControlComponent implements OnInit {
                 validatorName: splited[0],
                 message: `validation failed. (${splited[0]})`,
               });
-            } else {}
+            } else {
+            }
           }
         }
       });
