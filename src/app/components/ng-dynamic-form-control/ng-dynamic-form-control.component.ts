@@ -14,7 +14,7 @@ export class NgDynamicFormControlComponent implements OnInit {
   @Input() form_title: string;
   @Input() input_dynamicControls: IDynamicControl;
   @Output() onSubmit = new EventEmitter();
-  public _FORM_ELEMENT = '_df-dynamic-form'; // Form Id;
+  public _FORM_ELEMENT = '_df_dynamic_form'; // Form Id;
   private _DIV_FORM_GROUP = '_df_div'; // DIV
   private _ID_FORM_GROUP = '_df_fg'; // Form Group
   private _ID_FORM_CONTROL = '_df_fc'; // Form Control
@@ -300,7 +300,6 @@ export class NgDynamicFormControlComponent implements OnInit {
         formControlElement.style.border = environment.validationFailed.border;
       });
     } else {
-      console.log('Else executed.');
       e.data.forEach((x) => {
         console.log(x);
         document.getElementById(x['id']).style.border =
