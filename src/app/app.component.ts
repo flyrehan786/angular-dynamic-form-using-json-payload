@@ -8,9 +8,9 @@ import { UserService } from './services/user.service';
 })
 export class AppComponent {
   title = 'df-dynamic-form';
-  constructor(public service: UserService) {
-  }
+  constructor(public service: UserService) {}
   onFormSubmit(event: IFormData) {
-    console.log(event);
+    if (event.formIsValid === false) alert('Invalid form submitted.');
+    else console.log(event);
   }
 }

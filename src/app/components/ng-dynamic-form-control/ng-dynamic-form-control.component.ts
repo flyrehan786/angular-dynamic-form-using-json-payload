@@ -167,18 +167,14 @@ export class NgDynamicFormControlComponent implements OnInit {
     if (element.length > 0) {
       const extracted = this.extract(element);
       if (extracted.errors.length > 0) {
-        extracted.data.forEach((x) => {
-          document.getElementById(x['id']).style.border =
-            environment.defaultStyle.border;
-        });
-        extracted.errors.forEach((x) => {
-          const formControlId = x['id'];
-          const formControlElement = document.getElementById(formControlId);
-          formControlElement.style.border = environment.validationFailed.border;
-        });
+        this.removeErrorStyles(extracted);
       }
-      if (extracted.errors.length > 0) extracted.formIsValid = false;
-      else extracted.formIsValid = true;
+      if (extracted.errors.length > 0) {
+        extracted.formIsValid = false;
+      } else {
+        extracted.formIsValid = true;
+        this.removeErrorStyles(extracted);
+      }
       this.onSubmit.emit(extracted);
     } else console.log('No element found.');
   }
@@ -291,5 +287,25 @@ export class NgDynamicFormControlComponent implements OnInit {
       });
     } else console.log('validator length is < 1');
     return description;
+  }
+  private removeErrorStyles(e: IFormData) {
+    if (e.errors.length > 0) {
+      e.data.forEach((x) => {
+        document.getElementById(x['id']).style.border =
+          environment.defaultStyle.border;
+      });
+      e.errors.forEach((x) => {
+        const formControlId = x['id'];
+        const formControlElement = document.getElementById(formControlId);
+        formControlElement.style.border = environment.validationFailed.border;
+      });
+    } else {
+      console.log('Else executed.');
+      e.data.forEach((x) => {
+        console.log(x);
+        document.getElementById(x['id']).style.border =
+          environment.defaultStyle.border;
+      });
+    }
   }
 }
