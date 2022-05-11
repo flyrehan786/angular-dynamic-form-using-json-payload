@@ -84,7 +84,7 @@ export class NgDynamicFormControlComponent implements OnInit {
           dropdownOptions.forEach((x) => {
             options += `<option value=${x.value}>${x.key}</option>`;
           });
-          const id = `_ng_df_ctrl_n_${this.controlCounter}`;
+          const id = `_ng_dy_f_ctrl_n_${this.controlCounter}`;
           html += `
           <div id="${id}${this.ID_FORM_GROUP}" class="${
             this.DIV_FORM_GROUP
@@ -112,7 +112,7 @@ export class NgDynamicFormControlComponent implements OnInit {
         } else if (control.type === Types.Radio) {
           let radioButtons = '';
           const radioButtonOptions = control.radioButtonOptions;
-          const id = `_ng_df_ctrl_n_${this.controlCounter}`;
+          const id = `_ng_dy_f_ctrl_n_${this.controlCounter}`;
           radioButtonOptions.values.forEach((x) => {
             radioButtons += `
               <input
@@ -145,7 +145,7 @@ export class NgDynamicFormControlComponent implements OnInit {
           this.generatedControls.push(id);
         } else if (control.type === Types.Checkbox) {
           let checkboxes = '';
-          const id = `_ng_df_ctrl_n_${this.controlCounter}`;
+          const id = `_ng_dy_f_ctrl_n_${this.controlCounter}`;
           checkboxes += `
               <input
                   id="${id}${this.ID_FORM_CONTROL}"
