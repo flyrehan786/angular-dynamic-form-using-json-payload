@@ -18,10 +18,10 @@ export class NgDynamicFormControlComponent implements OnInit {
   @Input() input_dynamicControls: IDynamicControl;
   /** This function will be called when user submits a form */
   @Output() onSubmit = new EventEmitter();
-  public FORM_ELEMENT = '_ng_df_dynamic_form';
-  private DIV_FORM_GROUP = '_ng_df_div';
-  private ID_FORM_GROUP = '_ng_df_fg';
-  private ID_FORM_CONTROL = '_ng_df_fc';
+  public FORM_ELEMENT = 'ng_dy_f';
+  private DIV_FORM_GROUP = '_ng_dy_f_div';
+  private ID_FORM_GROUP = '_ng_dy_f_fg';
+  private ID_FORM_CONTROL = '_ng_dy_f_fc';
   private controlCounter = 10;
   private generatedControls: string[] = [];
   private componentEnvironment = {
@@ -54,7 +54,7 @@ export class NgDynamicFormControlComponent implements OnInit {
           if (control.type === Types.Textbox) fieldType = Types.Textbox;
           if (control.type === Types.Password) fieldType = Types.Password;
           if (control.type === Types.Datetime) fieldType = Types.Datetime;
-          const id = `_ng_df_ctrl_n_${this.controlCounter}`;
+          const id = `_ng_dy_f_ctrl_n_${this.controlCounter}`;
           html += `
           <div id="${id}${this.ID_FORM_GROUP}" class="${
             this.DIV_FORM_GROUP
