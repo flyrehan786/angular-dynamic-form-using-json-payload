@@ -25,6 +25,19 @@ export class NgDynamicFormControlComponent implements OnInit {
   private controlCounter = 10;
   private generatedControls: string[] = [];
   private componentEnvironment = {
+    attributes: {
+      key: {
+        for: {
+          Id: 'id',
+          Name: 'name',
+          Type: 'type',
+          Value: 'value',
+          Class: 'class',
+          Validators: '_dynamic_control_validators',
+          Regex: '_dynamic_control_regex',
+        },
+      },
+    },
     validationFailed: {
       border: '2px solid red',
     },
@@ -32,7 +45,7 @@ export class NgDynamicFormControlComponent implements OnInit {
       border: '1px solid #ced4da',
     },
   };
-  title = 'ng-df-dynamic-form';
+  title = 'angular-dynamic-form';
   constructor() {}
   ngOnInit(): void {}
   ngAfterViewInit(): void {
@@ -56,52 +69,76 @@ export class NgDynamicFormControlComponent implements OnInit {
           if (control.type === Types.Datetime) fieldType = Types.Datetime;
           const id = `_ng_dy_f_ctrl_n_${this.controlCounter}`;
           html += `
-          <div id="${id}${this.ID_FORM_GROUP}" class="${
+          <div ${this.componentEnvironment.attributes.key.for.Id}="${id}${
+            this.ID_FORM_GROUP
+          }" ${this.componentEnvironment.attributes.key.for.Class}="${
             this.DIV_FORM_GROUP
           } form-group ${controlBootstrapColSize} ">
-              <label for="">${control.label}</label>
+              <label>${control.label}</label>
               <input
-                id="${id}${this.ID_FORM_CONTROL}"
-                type="${fieldType}"
-                name="${control.name}"
-                value="${control.value}"
+                ${this.componentEnvironment.attributes.key.for.Id}="${id}${
+            this.ID_FORM_CONTROL
+          }"
+                ${
+                  this.componentEnvironment.attributes.key.for.Type
+                }="${fieldType}"
+                ${this.componentEnvironment.attributes.key.for.Name}="${
+            control.name
+          }"
+                ${this.componentEnvironment.attributes.key.for.Value}="${
+            control.value
+          }"
                 ${control.validators.required ? 'required' : ''}
-                _dynamic_control_validators="
+                ${this.componentEnvironment.attributes.key.for.Validators}="
                                 ${
                                   control.validators.required
                                     ? 'required:true'
                                     : ''
                                 }"
-                _dynamic_control_regex="${control.validators.regex}"
-                class="form-control">
+                ${this.componentEnvironment.attributes.key.for.Regex}="${
+            control.validators.regex
+          }"
+                ${
+                  this.componentEnvironment.attributes.key.for.Class
+                }="form-control">
           </div>
         `;
           this.controlCounter++;
           this.generatedControls.push(id);
         } else if (control.type === Types.Dropdown) {
-          let options = '<option value="" selected>Select</option>';
+          let options = `<option ${this.componentEnvironment.attributes.key.for.Value}="" selected>Select</option>`;
           const dropdownOptions = control.dropdownOptions;
           dropdownOptions.forEach((x) => {
-            options += `<option value=${x.value}>${x.key}</option>`;
+            options += `<option ${this.componentEnvironment.attributes.key.for.Value}=${x.value}>${x.key}</option>`;
           });
           const id = `_ng_df_ctrl_n_${this.controlCounter}`;
           html += `
-          <div id="${id}${this.ID_FORM_GROUP}" class="${
+          <div ${this.componentEnvironment.attributes.key.for.Id}="${id}${
+            this.ID_FORM_GROUP
+          }" ${this.componentEnvironment.attributes.key.for.Class}="${
             this.DIV_FORM_GROUP
           } form-group ${controlBootstrapColSize}">
-              <label for="">${control.label}</label>
+              <label>${control.label}</label>
               <select
-                id="${id}${this.ID_FORM_CONTROL}"
-                name="${control.name}"
+                ${this.componentEnvironment.attributes.key.for.Id}="${id}${
+            this.ID_FORM_CONTROL
+          }"
+                ${this.componentEnvironment.attributes.key.for.Name}="${
+            control.name
+          }"
                 ${control.validators.required ? 'required' : ''}
-                _dynamic_control_validators="
+                ${this.componentEnvironment.attributes.key.for.Validators}="
                                 ${
                                   control.validators.required
                                     ? 'required:true'
                                     : ''
                                 }"
-                _dynamic_control_regex="${control.validators.regex}"
-                class="form-control"
+                ${this.componentEnvironment.attributes.key.for.Regex}="${
+            control.validators.regex
+          }"
+                ${
+                  this.componentEnvironment.attributes.key.for.Class
+                }="form-control"
               >
               ${options}
               </select>
@@ -116,27 +153,29 @@ export class NgDynamicFormControlComponent implements OnInit {
           radioButtonOptions.values.forEach((x) => {
             radioButtons += `
               <input
-                class="form-check-input"
-                id="${id}${this.ID_FORM_CONTROL}"
-                type='radio' 
-                name=${control.name} 
-                value=${x.value} 
-                ${control.validators.required ? 'required' : ''}
-                _dynamic_control_validators="
-                                  ${
-                                    control.validators.required
-                                      ? 'required:true'
-                                      : ''
-                                  }"
+              ${this.componentEnvironment.attributes.key.for.Id}="${id}${
+              this.ID_FORM_CONTROL
+            }"
+              ${this.componentEnvironment.attributes.key.for.Type}='radio' 
+              ${this.componentEnvironment.attributes.key.for.Name}=${
+              control.name
+            } 
+              ${this.componentEnvironment.attributes.key.for.Value}=${x.value} 
+              ${control.validators.required ? 'required' : ''}
+              ${this.componentEnvironment.attributes.key.for.Validators}="
+              ${control.validators.required ? 'required:true' : ''}"
+              ${
+                this.componentEnvironment.attributes.key.for.Class
+              }="form-check-input"
               /> ${x.key} <br />
             `;
           });
           html += `
-            <div id="${id}${this.ID_FORM_GROUP}" class="${this.DIV_FORM_GROUP} form-group col-md-4">
-            <label class="form-check-label" for="exampleRadios1">
+            <div ${this.componentEnvironment.attributes.key.for.Id}="${id}${this.ID_FORM_GROUP}" ${this.componentEnvironment.attributes.key.for.Class}="${this.DIV_FORM_GROUP} form-group col-md-4">
+            <label ${this.componentEnvironment.attributes.key.for.Class}="form-check-label">
               ${control.label}
             </label>
-              <div class="form-check">
+              <div ${this.componentEnvironment.attributes.key.for.Class}="form-check">
                 ${radioButtons}
               </div>
             </div>
@@ -148,12 +187,20 @@ export class NgDynamicFormControlComponent implements OnInit {
           const id = `_ng_df_ctrl_n_${this.controlCounter}`;
           checkboxes += `
               <input
-                  id="${id}${this.ID_FORM_CONTROL}"
-                  type='checkbox' 
-                  name=${control.name} 
-                  value=${control.value} 
+                  ${this.componentEnvironment.attributes.key.for.Id}="${id}${
+            this.ID_FORM_CONTROL
+          }"
+                  ${
+                    this.componentEnvironment.attributes.key.for.Type
+                  }='checkbox' 
+                  ${this.componentEnvironment.attributes.key.for.Name}=${
+            control.name
+          } 
+                  ${this.componentEnvironment.attributes.key.for.Value}=${
+            control.value
+          } 
                   ${control.validators.required ? 'required' : ''}
-                  _dynamic_control_validators="
+                  ${this.componentEnvironment.attributes.key.for.Validators}="
                                     ${
                                       control.validators.required
                                         ? 'required:true'
@@ -161,9 +208,9 @@ export class NgDynamicFormControlComponent implements OnInit {
                                     }"
                 />`;
           html += `
-          <div id="${id}${this.ID_FORM_GROUP}" class="${this.DIV_FORM_GROUP} form-group ${controlBootstrapColSize}">
+          <div ${this.componentEnvironment.attributes.key.for.Id}="${id}${this.ID_FORM_GROUP}" ${this.componentEnvironment.attributes.key.for.Class}="${this.DIV_FORM_GROUP} form-group ${controlBootstrapColSize}">
             ${checkboxes}
-            <label class="form-check-label" for="">${control.label}</label>
+            <label ${this.componentEnvironment.attributes.key.for.Class}="form-check-label">${control.label}</label>
           </div>
         `;
           this.controlCounter++;
@@ -173,7 +220,7 @@ export class NgDynamicFormControlComponent implements OnInit {
       });
       html += `
         <p>
-          <button type="submit" class="mt-3 btn btn-primary">
+          <button ${this.componentEnvironment.attributes.key.for.Type}="submit" ${this.componentEnvironment.attributes.key.for.Class}="mt-3 btn btn-primary">
             Submit
           </button>
         </p>`;
@@ -188,12 +235,9 @@ export class NgDynamicFormControlComponent implements OnInit {
     );
     if (element.length > 0) {
       const extracted = this.extract(element);
-      if (extracted.errors.length > 0) {
-        this.removeErrorStyles(extracted);
-      }
-      if (extracted.errors.length > 0) {
-        extracted.formIsValid = false;
-      } else {
+      if (extracted.errors.length > 0) this.removeErrorStyles(extracted);
+      if (extracted.errors.length > 0) extracted.formIsValid = false;
+      else {
         extracted.formIsValid = true;
         this.removeErrorStyles(extracted);
       }

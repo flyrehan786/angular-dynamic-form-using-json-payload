@@ -1,5 +1,5 @@
 export enum Types {
-  'Textbox' = 'Textbox',
+  'Textbox' = 'Text',
   'Password' = 'Password',
   'Datetime' = 'datetime-local',
   'TextArea' = 'TextArea',
