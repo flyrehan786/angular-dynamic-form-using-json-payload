@@ -10,13 +10,18 @@ import { IValidationFailed } from 'src/app/models/IValidationFailed';
   styleUrls: ['./ng-dynamic-form-control.component.css'],
 })
 export class NgDynamicFormControlComponent implements OnInit {
+  /** To enable or disable component logs */
+  @Input() debugLogger: string;
+  /** Top level heading for form */
   @Input() form_title: string;
+  /** Json data for generating form-control (With given format) */
   @Input() input_dynamicControls: IDynamicControl;
+  /** This function will be called when user submits a form */
   @Output() onSubmit = new EventEmitter();
-  public FORM_ELEMENT = '_df_dynamic_form'; // Form Id;
-  private DIV_FORM_GROUP = '_df_div'; // DIV
-  private ID_FORM_GROUP = '_df_fg'; // Form Group
-  private ID_FORM_CONTROL = '_df_fc'; // Form Control
+  public FORM_ELEMENT = '_ng_df_dynamic_form';
+  private DIV_FORM_GROUP = '_ng_df_div';
+  private ID_FORM_GROUP = '_ng_df_fg';
+  private ID_FORM_CONTROL = '_ng_df_fc';
   private controlCounter = 10;
   private generatedControls: string[] = [];
   private componentEnvironment = {
@@ -27,7 +32,7 @@ export class NgDynamicFormControlComponent implements OnInit {
       border: '1px solid #ced4da',
     },
   };
-  title = 'df-dynamic-form';
+  title = 'ng-df-dynamic-form';
   constructor() {}
   ngOnInit(): void {}
   ngAfterViewInit(): void {
@@ -49,7 +54,7 @@ export class NgDynamicFormControlComponent implements OnInit {
           if (control.type === Types.Textbox) fieldType = Types.Textbox;
           if (control.type === Types.Password) fieldType = Types.Password;
           if (control.type === Types.Datetime) fieldType = Types.Datetime;
-          const id = `_df_control_n_${this.controlCounter}`;
+          const id = `_ng_df_ctrl_n_${this.controlCounter}`;
           html += `
           <div id="${id}${this.ID_FORM_GROUP}" class="${
             this.DIV_FORM_GROUP
@@ -79,7 +84,7 @@ export class NgDynamicFormControlComponent implements OnInit {
           dropdownOptions.forEach((x) => {
             options += `<option value=${x.value}>${x.key}</option>`;
           });
-          const id = `_df_control_n_${this.controlCounter}`;
+          const id = `_ng_df_ctrl_n_${this.controlCounter}`;
           html += `
           <div id="${id}${this.ID_FORM_GROUP}" class="${
             this.DIV_FORM_GROUP
@@ -107,7 +112,7 @@ export class NgDynamicFormControlComponent implements OnInit {
         } else if (control.type === Types.Radio) {
           let radioButtons = '';
           const radioButtonOptions = control.radioButtonOptions;
-          const id = `_df_control_n_${this.controlCounter}`;
+          const id = `_ng_df_ctrl_n_${this.controlCounter}`;
           radioButtonOptions.values.forEach((x) => {
             radioButtons += `
               <input
@@ -140,7 +145,7 @@ export class NgDynamicFormControlComponent implements OnInit {
           this.generatedControls.push(id);
         } else if (control.type === Types.Checkbox) {
           let checkboxes = '';
-          const id = `_df_control_n_${this.controlCounter}`;
+          const id = `_ng_df_ctrl_n_${this.controlCounter}`;
           checkboxes += `
               <input
                   id="${id}${this.ID_FORM_CONTROL}"
@@ -173,9 +178,11 @@ export class NgDynamicFormControlComponent implements OnInit {
           </button>
         </p>`;
       formElement.innerHTML = html;
-    } else console.log('No form element found.');
+    } else this.debug(`No form element found by [id]:${this.FORM_ELEMENT}`);
   }
+  /** Publish submitted data to a parent component */
   submit() {
+    this.debug('Submit() called');
     const element: HTMLCollectionOf<Element> = document.getElementsByClassName(
       this.DIV_FORM_GROUP
     );
@@ -191,8 +198,9 @@ export class NgDynamicFormControlComponent implements OnInit {
         this.removeErrorStyles(extracted);
       }
       this.onSubmit.emit(extracted);
-    } else console.log('No element found.');
+    } else this.debug('No element found');
   }
+  /** Analyzing all controls element with specific control type */
   private extract(elements: HTMLCollectionOf<Element>) {
     let extracted: IFormData = { errors: [], data: [] };
     if (this.generatedControls.length === elements.length) {
@@ -275,11 +283,15 @@ export class NgDynamicFormControlComponent implements OnInit {
               });
             }
           }
-        } else console.log('Invalid dom-element id');
+        } else this.debug('Invalid dom-element id');
       }
-    } else console.log('Invalid dynamically-generated-controls info');
+    } else this.debug('Invalid dynamically-generated-controls info');
     return extracted;
   }
+  /**
+   * Validating value against all provided validators and regular expression on a specific
+   * html control.
+   */
   private analyze(
     validators: string[],
     value: string,
@@ -306,7 +318,7 @@ export class NgDynamicFormControlComponent implements OnInit {
           }
         }
       });
-    } else console.log('validator length is < 1');
+    } else this.debug(`No validator exist on element with [id]:${id}`);
     // Checking Regular Expression.
     if (regularExpression) {
       const regex = new RegExp(regularExpression);
@@ -328,6 +340,9 @@ export class NgDynamicFormControlComponent implements OnInit {
     }
     return description;
   }
+  /**
+   * Removing error styles when form have no errors.
+   */
   private removeErrorStyles(e: IFormData) {
     if (e.errors.length > 0) {
       e.data.forEach((x) => {
@@ -342,10 +357,14 @@ export class NgDynamicFormControlComponent implements OnInit {
       });
     } else {
       e.data.forEach((x) => {
-        console.log(x);
         document.getElementById(x['id']).style.border =
           this.componentEnvironment.defaultStyle.border;
       });
     }
+  }
+  private debug(message: string) {
+    if (this.debugLogger) {
+      console.log(message);
+    } else console.log('[Component-Debug-Logs] Debug Logger is disabled.');
   }
 }
