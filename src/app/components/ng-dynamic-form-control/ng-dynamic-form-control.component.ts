@@ -5,7 +5,7 @@ import { IDynamicControl } from 'src/app/models/IDynamicControl';
 import { IFormData } from 'src/app/models/IFormData';
 import { IValidationFailed } from 'src/app/models/IValidationFailed';
 @Component({
-  selector: 'ng-dynamic-form-control',
+  selector: 'ng-dy-form',
   templateUrl: './ng-dynamic-form-control.component.html',
   styleUrls: ['./ng-dynamic-form-control.component.css'],
 })
