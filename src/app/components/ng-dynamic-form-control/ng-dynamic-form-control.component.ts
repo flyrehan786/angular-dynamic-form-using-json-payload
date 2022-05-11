@@ -13,10 +13,10 @@ export class NgDynamicFormControlComponent implements OnInit {
   @Input() form_title: string;
   @Input() input_dynamicControls: IDynamicControl;
   @Output() onSubmit = new EventEmitter();
-  public _FORM_ELEMENT = '_df_dynamic_form'; // Form Id;
-  private _DIV_FORM_GROUP = '_df_div'; // DIV
-  private _ID_FORM_GROUP = '_df_fg'; // Form Group
-  private _ID_FORM_CONTROL = '_df_fc'; // Form Control
+  public FORM_ELEMENT = '_df_dynamic_form'; // Form Id;
+  private DIV_FORM_GROUP = '_df_div'; // DIV
+  private ID_FORM_GROUP = '_df_fg'; // Form Group
+  private ID_FORM_CONTROL = '_df_fc'; // Form Control
   private controlCounter = 10;
   private generatedControls: string[] = [];
   private componentEnvironment = {
@@ -32,9 +32,7 @@ export class NgDynamicFormControlComponent implements OnInit {
   ngOnInit(): void {}
   ngAfterViewInit(): void {
     let html = ``;
-    const formElement: HTMLElement = document.getElementById(
-      this._FORM_ELEMENT
-    );
+    const formElement: HTMLElement = document.getElementById(this.FORM_ELEMENT);
     if (formElement) {
       const dynamicControls: IDynamicControl = this.input_dynamicControls;
       const controls: IControl[] = dynamicControls.controls;
@@ -53,12 +51,12 @@ export class NgDynamicFormControlComponent implements OnInit {
           if (control.type === Types.Datetime) fieldType = Types.Datetime;
           const id = `_df_control_n_${this.controlCounter}`;
           html += `
-          <div id="${id}${this._ID_FORM_GROUP}" class="${
-            this._DIV_FORM_GROUP
+          <div id="${id}${this.ID_FORM_GROUP}" class="${
+            this.DIV_FORM_GROUP
           } form-group ${controlBootstrapColSize} ">
               <label for="">${control.label}</label>
               <input
-                id="${id}${this._ID_FORM_CONTROL}"
+                id="${id}${this.ID_FORM_CONTROL}"
                 type="${fieldType}"
                 name="${control.name}"
                 value="${control.value}"
@@ -82,12 +80,12 @@ export class NgDynamicFormControlComponent implements OnInit {
           });
           const id = `_df_control_n_${this.controlCounter}`;
           html += `
-          <div id="${id}${this._ID_FORM_GROUP}" class="${
-            this._DIV_FORM_GROUP
+          <div id="${id}${this.ID_FORM_GROUP}" class="${
+            this.DIV_FORM_GROUP
           } form-group ${controlBootstrapColSize}">
               <label for="">${control.label}</label>
               <select
-                id="${id}${this._ID_FORM_CONTROL}"
+                id="${id}${this.ID_FORM_CONTROL}"
                 name="${control.name}"
                 ${control.validators.required ? 'required' : ''}
                 _dynamic_control_validators="
@@ -112,7 +110,7 @@ export class NgDynamicFormControlComponent implements OnInit {
             radioButtons += `
               <input
                 class="form-check-input"
-                id="${id}${this._ID_FORM_CONTROL}"
+                id="${id}${this.ID_FORM_CONTROL}"
                 type='radio' 
                 name=${control.name} 
                 value=${x.value} 
@@ -127,7 +125,7 @@ export class NgDynamicFormControlComponent implements OnInit {
             `;
           });
           html += `
-            <div id="${id}${this._ID_FORM_GROUP}" class="${this._DIV_FORM_GROUP} form-group col-md-4">
+            <div id="${id}${this.ID_FORM_GROUP}" class="${this.DIV_FORM_GROUP} form-group col-md-4">
             <label class="form-check-label" for="exampleRadios1">
               ${control.label}
             </label>
@@ -143,7 +141,7 @@ export class NgDynamicFormControlComponent implements OnInit {
           const id = `_df_control_n_${this.controlCounter}`;
           checkboxes += `
               <input
-                  id="${id}${this._ID_FORM_CONTROL}"
+                  id="${id}${this.ID_FORM_CONTROL}"
                   type='checkbox' 
                   name=${control.name} 
                   value=${control.value} 
@@ -156,7 +154,7 @@ export class NgDynamicFormControlComponent implements OnInit {
                                     }"
                 />`;
           html += `
-          <div id="${id}${this._ID_FORM_GROUP}" class="${this._DIV_FORM_GROUP} form-group ${controlBootstrapColSize}">
+          <div id="${id}${this.ID_FORM_GROUP}" class="${this.DIV_FORM_GROUP} form-group ${controlBootstrapColSize}">
             ${checkboxes}
             <label class="form-check-label" for="">${control.label}</label>
           </div>
@@ -177,7 +175,7 @@ export class NgDynamicFormControlComponent implements OnInit {
   }
   submit() {
     const element: HTMLCollectionOf<Element> = document.getElementsByClassName(
-      this._DIV_FORM_GROUP
+      this.DIV_FORM_GROUP
     );
     if (element.length > 0) {
       const extracted = this.extract(element);
@@ -198,11 +196,10 @@ export class NgDynamicFormControlComponent implements OnInit {
     if (this.generatedControls.length === elements.length) {
       for (let i = 0; i < elements.length; i++) {
         const element = elements[i];
-        const controlParentDIV =
-          this.generatedControls[i] + this._ID_FORM_GROUP;
+        const controlParentDIV = this.generatedControls[i] + this.ID_FORM_GROUP;
         if (element.id === controlParentDIV) {
           const inputElement: HTMLElement = document.getElementById(
-            this.generatedControls[i] + this._ID_FORM_CONTROL
+            this.generatedControls[i] + this.ID_FORM_CONTROL
           );
           const validators = inputElement.getAttribute(
             '_dynamic_control_validators'
