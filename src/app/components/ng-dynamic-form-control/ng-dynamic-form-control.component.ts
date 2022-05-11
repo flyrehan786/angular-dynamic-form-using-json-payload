@@ -42,10 +42,15 @@ export class NgDynamicFormControlComponent implements OnInit {
         let controlBootstrapColSize = control.bootstrapColSize
           ? control.bootstrapColSize
           : 'col-md-12';
-        if (control.type === Types.Textbox || control.type === Types.Password) {
+        if (
+          control.type === Types.Textbox ||
+          control.type === Types.Password ||
+          control.type === Types.Datetime
+        ) {
           let fieldType = '';
-          if (control.type === Types.Textbox) fieldType = 'text';
-          if (control.type === Types.Password) fieldType = 'password';
+          if (control.type === Types.Textbox) fieldType = Types.Textbox;
+          if (control.type === Types.Password) fieldType = Types.Password;
+          if (control.type === Types.Datetime) fieldType = Types.Datetime;
           const id = `_df_control_n_${this.controlCounter}`;
           html += `
           <div id="${id}${this._ID_FORM_GROUP}" class="${
@@ -204,6 +209,8 @@ export class NgDynamicFormControlComponent implements OnInit {
           );
           if (
             inputElement['type'] === 'text' ||
+            inputElement['type'] === 'password' ||
+            inputElement['type'] === 'datetime-local' ||
             inputElement['type'] === 'select-one'
           ) {
             const splited = validators.split(',');

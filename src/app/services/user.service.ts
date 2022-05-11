@@ -112,6 +112,17 @@ export class UserService {
             regex: '',
           },
         },
+        {
+          type: Types.Datetime,
+          label: 'BirthDate',
+          name: 'birthdate',
+          value: '',
+          bootstrapColSize: 'col-md-4',
+          validators: {
+            required: true,
+            regex: '',
+          },
+        },
       ],
     };
     return _controls;
