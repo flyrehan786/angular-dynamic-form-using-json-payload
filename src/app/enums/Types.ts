@@ -1,7 +1,8 @@
 export enum Types {
-  'Textbox'='Textbox',
-  'TextArea'='TextArea',
-  'Dropdown'='Dropdown',
-  'Checkbox'='Checkbox',
-  'Radio'='Radio'
+  'Textbox' = 'Textbox',
+  'Password' = 'Password',
+  'TextArea' = 'TextArea',
+  'Dropdown' = 'Dropdown',
+  'Checkbox' = 'Checkbox',
+  'Radio' = 'Radio',
 }

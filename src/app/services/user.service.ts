@@ -9,14 +9,14 @@ export class UserService {
   getDynamicControl() {
     // Assume that this JSON data is comming from server.
     const _controls: IDynamicControl = {
-      formTitle: "User Registration",
+      formTitle: 'Dynamic Form',
       controls: [
         {
           type: Types.Dropdown,
           label: 'Dropdown',
           name: 'firstName',
           value: '',
-          bootstrapColSize: "col-md-4",
+          bootstrapColSize: 'col-md-4',
           dropdownOptions: [
             { key: 'Option1', value: '0' },
             { key: 'Option2', value: '1' },
@@ -33,14 +33,14 @@ export class UserService {
           label: 'Gender',
           name: 'Gender',
           value: '',
-          bootstrapColSize: "col-md-4",
+          bootstrapColSize: 'col-md-4',
           radioButtonOptions: {
-              values: [
-                { key: "Male" ,  value: '0' },
-                { key: "Female", value: '1' },
-                { key: "Other",  value: '2' },
-              ],
-            },
+            values: [
+              { key: 'Male', value: '0' },
+              { key: 'Female', value: '1' },
+              { key: 'Other', value: '2' },
+            ],
+          },
           validators: {
             required: true,
             regex: '',
@@ -51,7 +51,7 @@ export class UserService {
           label: 'Subscribe to news-letters',
           name: 'news-letters',
           value: '0',
-          bootstrapColSize: "col-md-4",
+          bootstrapColSize: 'col-md-4',
           validators: {
             required: true,
             regex: '',
@@ -62,7 +62,7 @@ export class UserService {
           label: 'Subscribe To Mailing List',
           name: 'mailing-list',
           value: '0',
-          bootstrapColSize: "col-md-4",
+          bootstrapColSize: 'col-md-4',
           validators: {
             required: true,
             regex: '',
@@ -73,7 +73,7 @@ export class UserService {
           label: 'Subscribe To Mailing List',
           name: 'mailing-list',
           value: '0',
-          bootstrapColSize: "col-md-4",
+          bootstrapColSize: 'col-md-4',
           validators: {
             required: true,
             regex: '',
@@ -84,7 +84,7 @@ export class UserService {
           label: 'Phone',
           name: 'phone',
           value: '',
-          bootstrapColSize: "col-md-4",
+          bootstrapColSize: 'col-md-4',
           validators: {
             required: true,
             regex: '',
@@ -95,7 +95,18 @@ export class UserService {
           label: 'Address',
           name: 'address',
           value: '',
-          bootstrapColSize: "col-md-4",
+          bootstrapColSize: 'col-md-4',
+          validators: {
+            required: true,
+            regex: '',
+          },
+        },
+        {
+          type: Types.Password,
+          label: 'Password',
+          name: 'password',
+          value: '',
+          bootstrapColSize: 'col-md-4',
           validators: {
             required: true,
             regex: '',

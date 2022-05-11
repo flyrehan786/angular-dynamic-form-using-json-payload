@@ -42,7 +42,10 @@ export class NgDynamicFormControlComponent implements OnInit {
         let controlBootstrapColSize = control.bootstrapColSize
           ? control.bootstrapColSize
           : 'col-md-12';
-        if (control.type === Types.Textbox) {
+        if (control.type === Types.Textbox || control.type === Types.Password) {
+          let fieldType = '';
+          if (control.type === Types.Textbox) fieldType = 'text';
+          if (control.type === Types.Password) fieldType = 'password';
           const id = `_df_control_n_${this.controlCounter}`;
           html += `
           <div id="${id}${this._ID_FORM_GROUP}" class="${
@@ -51,7 +54,7 @@ export class NgDynamicFormControlComponent implements OnInit {
               <label for="">${control.label}</label>
               <input
                 id="${id}${this._ID_FORM_CONTROL}"
-                type="text"
+                type="${fieldType}"
                 name="${control.name}"
                 value="${control.value}"
                 ${control.validators.required ? 'required' : ''}
