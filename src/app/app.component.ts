@@ -10,7 +10,9 @@ export class AppComponent {
   title = 'df-dynamic-form';
   constructor(public service: UserService) {}
   onFormSubmit(event: IFormData) {
-    if (event.formIsValid === false) alert('Invalid form submitted.');
-    else console.log(event);
+    if (event.formIsValid === false) {
+      alert('Invalid form submitted.');
+      console.log(event);
+    } else console.log(event);
   }
 }

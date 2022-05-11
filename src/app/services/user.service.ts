@@ -87,7 +87,7 @@ export class UserService {
           bootstrapColSize: 'col-md-4',
           validators: {
             required: true,
-            regex: '',
+            regex: '^[0-9]{3}$',
           },
         },
         {
@@ -98,7 +98,7 @@ export class UserService {
           bootstrapColSize: 'col-md-4',
           validators: {
             required: true,
-            regex: '',
+            regex: 'Address Regular Expression',
           },
         },
         {
@@ -109,7 +109,7 @@ export class UserService {
           bootstrapColSize: 'col-md-4',
           validators: {
             required: true,
-            regex: '',
+            regex: 'Password Regular Expression',
           },
         },
         {
@@ -120,7 +120,7 @@ export class UserService {
           bootstrapColSize: 'col-md-4',
           validators: {
             required: true,
-            regex: '',
+            regex: 'Birthdata Regular Expression',
           },
         },
       ],

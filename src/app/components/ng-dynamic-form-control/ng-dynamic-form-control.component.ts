@@ -67,6 +67,7 @@ export class NgDynamicFormControlComponent implements OnInit {
                                     ? 'required:true'
                                     : ''
                                 }"
+                _dynamic_control_regex="${control.validators.regex}"
                 class="form-control">
           </div>
         `;
@@ -94,6 +95,7 @@ export class NgDynamicFormControlComponent implements OnInit {
                                     ? 'required:true'
                                     : ''
                                 }"
+                _dynamic_control_regex="${control.validators.regex}"
                 class="form-control"
               >
               ${options}
@@ -211,11 +213,15 @@ export class NgDynamicFormControlComponent implements OnInit {
             inputElement['type'] === 'select-one'
           ) {
             const splited = validators.split(',');
+            const regularExpression = inputElement.getAttribute(
+              '_dynamic_control_regex'
+            );
             const analyzed: IValidationFailed[] = this.analyze(
               splited,
               inputElement['value'],
               inputElement.getAttribute('name'),
-              inputElement.getAttribute('id')
+              inputElement.getAttribute('id'),
+              regularExpression
             );
             if (analyzed.length > 0) {
               extracted.errors.push(analyzed[0]);
@@ -278,7 +284,8 @@ export class NgDynamicFormControlComponent implements OnInit {
     validators: string[],
     value: string,
     title: string,
-    id: string
+    id: string,
+    regularExpression?: string
   ) {
     let description: IValidationFailed[] = [];
     if (validators.length > 0) {
@@ -300,6 +307,25 @@ export class NgDynamicFormControlComponent implements OnInit {
         }
       });
     } else console.log('validator length is < 1');
+    // Checking Regular Expression.
+    if (regularExpression) {
+      const regex = new RegExp(regularExpression);
+      const regexResult = regex.test(value);
+      if (!regexResult) {
+        const index = description.findIndex((x) => x.id === id);
+        if (index !== -1) {
+          description[index].regex = regularExpression;
+          description[index].message += `, regex validation failed.`;
+        } else {
+          description.push({
+            id,
+            title,
+            regex: regularExpression,
+            message: `regex validation failed.`,
+          });
+        }
+      }
+    }
     return description;
   }
   private removeErrorStyles(e: IFormData) {
