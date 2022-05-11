@@ -3,12 +3,6 @@
 // The list of file replacements can be found in `angular.json`.
 export const environment = {
   production: false,
-  validationFailed: {
-    border: '2px solid red',
-  },
-  defaultStyle: {
-    border: '1px solid #ced4da'
-  }
 };
 /*
  * For easier debugging in development mode, you can import the following file

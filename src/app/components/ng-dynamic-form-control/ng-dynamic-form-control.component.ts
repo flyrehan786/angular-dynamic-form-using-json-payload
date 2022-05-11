@@ -4,7 +4,6 @@ import { IControl } from 'src/app/models/IControl';
 import { IDynamicControl } from 'src/app/models/IDynamicControl';
 import { IFormData } from 'src/app/models/IFormData';
 import { IValidationFailed } from 'src/app/models/IValidationFailed';
-import { environment } from 'src/environments/environment';
 @Component({
   selector: 'ng-dynamic-form-control',
   templateUrl: './ng-dynamic-form-control.component.html',
@@ -20,6 +19,14 @@ export class NgDynamicFormControlComponent implements OnInit {
   private _ID_FORM_CONTROL = '_df_fc'; // Form Control
   private controlCounter = 10;
   private generatedControls: string[] = [];
+  private componentEnvironment = {
+    validationFailed: {
+      border: '2px solid red',
+    },
+    defaultStyle: {
+      border: '1px solid #ced4da',
+    },
+  };
   title = 'df-dynamic-form';
   constructor() {}
   ngOnInit(): void {}
@@ -292,18 +299,19 @@ export class NgDynamicFormControlComponent implements OnInit {
     if (e.errors.length > 0) {
       e.data.forEach((x) => {
         document.getElementById(x['id']).style.border =
-          environment.defaultStyle.border;
+          this.componentEnvironment.defaultStyle.border;
       });
       e.errors.forEach((x) => {
         const formControlId = x['id'];
         const formControlElement = document.getElementById(formControlId);
-        formControlElement.style.border = environment.validationFailed.border;
+        formControlElement.style.border =
+          this.componentEnvironment.validationFailed.border;
       });
     } else {
       e.data.forEach((x) => {
         console.log(x);
         document.getElementById(x['id']).style.border =
-          environment.defaultStyle.border;
+          this.componentEnvironment.defaultStyle.border;
       });
     }
   }
