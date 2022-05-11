@@ -252,7 +252,7 @@ export class NgDynamicFormControlComponent implements OnInit {
                 id: inputElement.getAttribute('id'),
               });
             }
-          } else if (inputElement['type'] === 'checkbox') {
+          } else if (inputElement['type'] === Types.Checkbox) {
             const checked = inputElement['checked'];
             const splited = validators.split(',');
             const analyzed: IValidationFailed[] = this.analyze(
