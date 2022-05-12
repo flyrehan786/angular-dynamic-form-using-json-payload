@@ -143,13 +143,17 @@ export class NgDynamicFormControlComponent implements OnInit {
           radioButtonOptions.values.forEach((x) => {
             radioButtons += `
               <input
-                class="form-check-input"
-                id="${id}${this.ID_FORM_CONTROL}"
-                type='radio' 
-                name=${control.name} 
-                value=${x.value} 
+                ${
+                  this.componentEnv.controlAttributesKeys.class
+                }="form-check-input"
+                ${this.componentEnv.controlAttributesKeys.id}="${id}${
+              this.ID_FORM_CONTROL
+            }"
+                ${this.componentEnv.controlAttributesKeys.type}='radio' 
+                ${this.componentEnv.controlAttributesKeys.name}=${control.name} 
+                ${this.componentEnv.controlAttributesKeys.value}=${x.value} 
                 ${control.validators.required ? 'required' : ''}
-                _dynamic_control_validators="
+                ${this.componentEnv.controlAttributesKeys.validators}="
                                   ${
                                     control.validators.required
                                       ? 'required:true'
@@ -159,11 +163,11 @@ export class NgDynamicFormControlComponent implements OnInit {
             `;
           });
           html += `
-            <div id="${id}${this.ID_FORM_GROUP}" class="${this.DIV_FORM_GROUP} form-group col-md-4">
-            <label class="form-check-label" for="exampleRadios1">
+            <div ${this.componentEnv.controlAttributesKeys.id}="${id}${this.ID_FORM_GROUP}" ${this.componentEnv.controlAttributesKeys.class}="${this.DIV_FORM_GROUP} form-group col-md-4">
+            <label ${this.componentEnv.controlAttributesKeys.class}="form-check-label">
               ${control.label}
             </label>
-              <div class="form-check">
+              <div ${this.componentEnv.controlAttributesKeys.class}="form-check">
                 ${radioButtons}
               </div>
             </div>
