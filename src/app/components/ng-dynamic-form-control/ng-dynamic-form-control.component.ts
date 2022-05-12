@@ -24,7 +24,16 @@ export class NgDynamicFormControlComponent implements OnInit {
   private ID_FORM_CONTROL = '_ng_dy_f_fc';
   private controlCounter = 10;
   private generatedControls: string[] = [];
-  private componentEnvironment = {
+  private componentEnv = {
+    controlAttributes: {
+      id: 'id',
+      type: 'type',
+      name: 'name',
+      value: 'value',
+      class: 'class',
+      validators: '_dynamic_control_validators',
+      regex: '_dynamic_control_regex',
+    },
     validationFailed: {
       border: '2px solid red',
     },
@@ -56,24 +65,30 @@ export class NgDynamicFormControlComponent implements OnInit {
           if (control.type === Types.Datetime) fieldType = Types.Datetime;
           const id = `_ng_dy_f_ctrl_n_${this.controlCounter}`;
           html += `
-          <div id="${id}${this.ID_FORM_GROUP}" class="${
+          <div ${this.componentEnv.controlAttributes.id}="${id}${
+            this.ID_FORM_GROUP
+          }" ${this.componentEnv.controlAttributes.class}="${
             this.DIV_FORM_GROUP
           } form-group ${controlBootstrapColSize} ">
-              <label for="">${control.label}</label>
+              <label>${control.label}</label>
               <input
-                id="${id}${this.ID_FORM_CONTROL}"
-                type="${fieldType}"
-                name="${control.name}"
-                value="${control.value}"
+                ${this.componentEnv.controlAttributes.id}="${id}${
+            this.ID_FORM_CONTROL
+          }"
+                ${this.componentEnv.controlAttributes.type}="${fieldType}"
+                ${this.componentEnv.controlAttributes.name}="${control.name}"
+                ${this.componentEnv.controlAttributes.value}="${control.value}"
                 ${control.validators.required ? 'required' : ''}
-                _dynamic_control_validators="
+                ${this.componentEnv.controlAttributes.validators}="
                                 ${
                                   control.validators.required
                                     ? 'required:true'
                                     : ''
                                 }"
-                _dynamic_control_regex="${control.validators.regex}"
-                class="form-control">
+                ${this.componentEnv.controlAttributes.regex}="${
+            control.validators.regex
+          }"
+                ${this.componentEnv.controlAttributes.class}="form-control">
           </div>
         `;
           this.controlCounter++;
@@ -344,18 +359,18 @@ export class NgDynamicFormControlComponent implements OnInit {
     if (e.errors.length > 0) {
       e.data.forEach((x) => {
         document.getElementById(x['id']).style.border =
-          this.componentEnvironment.defaultStyle.border;
+          this.componentEnv.defaultStyle.border;
       });
       e.errors.forEach((x) => {
         const formControlId = x['id'];
         const formControlElement = document.getElementById(formControlId);
         formControlElement.style.border =
-          this.componentEnvironment.validationFailed.border;
+          this.componentEnv.validationFailed.border;
       });
     } else {
       e.data.forEach((x) => {
         document.getElementById(x['id']).style.border =
-          this.componentEnvironment.defaultStyle.border;
+          this.componentEnv.defaultStyle.border;
       });
     }
   }
