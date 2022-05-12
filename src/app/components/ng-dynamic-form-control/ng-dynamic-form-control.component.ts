@@ -179,12 +179,18 @@ export class NgDynamicFormControlComponent implements OnInit {
           const id = `_ng_dy_f_ctrl_n_${this.controlCounter}`;
           checkboxes += `
               <input
-                  id="${id}${this.ID_FORM_CONTROL}"
-                  type='checkbox' 
-                  name=${control.name} 
-                  value=${control.value} 
+                  ${this.componentEnv.controlAttributesKeys.id}="${id}${
+            this.ID_FORM_CONTROL
+          }"
+                  ${this.componentEnv.controlAttributesKeys.type}='checkbox' 
+                  ${this.componentEnv.controlAttributesKeys.name}=${
+            control.name
+          } 
+                  ${this.componentEnv.controlAttributesKeys.value}=${
+            control.value
+          } 
                   ${control.validators.required ? 'required' : ''}
-                  _dynamic_control_validators="
+                  ${this.componentEnv.controlAttributesKeys.validators}="
                                     ${
                                       control.validators.required
                                         ? 'required:true'
@@ -192,9 +198,9 @@ export class NgDynamicFormControlComponent implements OnInit {
                                     }"
                 />`;
           html += `
-          <div id="${id}${this.ID_FORM_GROUP}" class="${this.DIV_FORM_GROUP} form-group ${controlBootstrapColSize}">
+          <div ${this.componentEnv.controlAttributesKeys.id}="${id}${this.ID_FORM_GROUP}" ${this.componentEnv.controlAttributesKeys.class}="${this.DIV_FORM_GROUP} form-group ${controlBootstrapColSize}">
             ${checkboxes}
-            <label class="form-check-label" for="">${control.label}</label>
+            <label ${this.componentEnv.controlAttributesKeys.class}="form-check-label">${control.label}</label>
           </div>
         `;
           this.controlCounter++;
@@ -204,7 +210,7 @@ export class NgDynamicFormControlComponent implements OnInit {
       });
       html += `
         <p>
-          <button type="submit" class="mt-3 btn btn-primary">
+          <button ${this.componentEnv.controlAttributesKeys.type}="submit" ${this.componentEnv.controlAttributesKeys.class}="mt-3 btn btn-primary">
             Submit
           </button>
         </p>`;
