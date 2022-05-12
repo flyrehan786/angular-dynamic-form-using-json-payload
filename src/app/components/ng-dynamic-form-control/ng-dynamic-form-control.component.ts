@@ -25,7 +25,7 @@ export class NgDynamicFormControlComponent implements OnInit {
   private controlCounter = 10;
   private generatedControls: string[] = [];
   private componentEnv = {
-    controlAttributes: {
+    controlAttributesKeys: {
       id: 'id',
       type: 'type',
       name: 'name',
@@ -65,58 +65,70 @@ export class NgDynamicFormControlComponent implements OnInit {
           if (control.type === Types.Datetime) fieldType = Types.Datetime;
           const id = `_ng_dy_f_ctrl_n_${this.controlCounter}`;
           html += `
-          <div ${this.componentEnv.controlAttributes.id}="${id}${
+          <div ${this.componentEnv.controlAttributesKeys.id}="${id}${
             this.ID_FORM_GROUP
-          }" ${this.componentEnv.controlAttributes.class}="${
+          }" ${this.componentEnv.controlAttributesKeys.class}="${
             this.DIV_FORM_GROUP
           } form-group ${controlBootstrapColSize} ">
               <label>${control.label}</label>
               <input
-                ${this.componentEnv.controlAttributes.id}="${id}${
+                ${this.componentEnv.controlAttributesKeys.id}="${id}${
             this.ID_FORM_CONTROL
           }"
-                ${this.componentEnv.controlAttributes.type}="${fieldType}"
-                ${this.componentEnv.controlAttributes.name}="${control.name}"
-                ${this.componentEnv.controlAttributes.value}="${control.value}"
+                ${this.componentEnv.controlAttributesKeys.type}="${fieldType}"
+                ${this.componentEnv.controlAttributesKeys.name}="${
+            control.name
+          }"
+                ${this.componentEnv.controlAttributesKeys.value}="${
+            control.value
+          }"
                 ${control.validators.required ? 'required' : ''}
-                ${this.componentEnv.controlAttributes.validators}="
+                ${this.componentEnv.controlAttributesKeys.validators}="
                                 ${
                                   control.validators.required
                                     ? 'required:true'
                                     : ''
                                 }"
-                ${this.componentEnv.controlAttributes.regex}="${
+                ${this.componentEnv.controlAttributesKeys.regex}="${
             control.validators.regex
           }"
-                ${this.componentEnv.controlAttributes.class}="form-control">
+                ${this.componentEnv.controlAttributesKeys.class}="form-control">
           </div>
         `;
           this.controlCounter++;
           this.generatedControls.push(id);
         } else if (control.type === Types.Dropdown) {
-          let options = '<option value="" selected>Select</option>';
+          let options = `<option ${this.componentEnv.controlAttributesKeys.value}="" selected>Select</option>`;
           const dropdownOptions = control.dropdownOptions;
           dropdownOptions.forEach((x) => {
-            options += `<option value=${x.value}>${x.key}</option>`;
+            options += `<option ${this.componentEnv.controlAttributesKeys.value}=${x.value}>${x.key}</option>`;
           });
           const id = `_ng_dy_f_ctrl_n_${this.controlCounter}`;
           html += `
-          <div id="${id}${this.ID_FORM_GROUP}" class="${
+          <div ${this.componentEnv.controlAttributesKeys.id}="${id}${
+            this.ID_FORM_GROUP
+          }" ${this.componentEnv.controlAttributesKeys.class}="${
             this.DIV_FORM_GROUP
           } form-group ${controlBootstrapColSize}">
-              <label for="">${control.label}</label>
+              <label>${control.label}</label>
               <select
-                id="${id}${this.ID_FORM_CONTROL}"
-                name="${control.name}"
+                ${this.componentEnv.controlAttributesKeys.id}="${id}${
+            this.ID_FORM_CONTROL
+          }"
+                ${this.componentEnv.controlAttributesKeys.name}="${
+            control.name
+          }"
                 ${control.validators.required ? 'required' : ''}
-                _dynamic_control_validators="
+                ${this.componentEnv.controlAttributesKeys.validators}="
                                 ${
                                   control.validators.required
                                     ? 'required:true'
                                     : ''
                                 }"
-                _dynamic_control_regex="${control.validators.regex}"
-                class="form-control"
+                ${this.componentEnv.controlAttributesKeys.regex}="${
+            control.validators.regex
+          }"
+                ${this.componentEnv.controlAttributesKeys.class}="form-control"
               >
               ${options}
               </select>
