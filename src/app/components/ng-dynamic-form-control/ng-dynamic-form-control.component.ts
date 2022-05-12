@@ -34,6 +34,9 @@ export class NgDynamicFormControlComponent implements OnInit {
       validators: '_dynamic_control_validators',
       regex: '_dynamic_control_regex',
     },
+    controlAttributesValues: {
+      idPrefix: '_ng_dy_f_ctrl_n_',
+    },
     validationFailed: {
       border: '2px solid red',
     },
@@ -63,7 +66,7 @@ export class NgDynamicFormControlComponent implements OnInit {
           if (control.type === Types.Textbox) fieldType = Types.Textbox;
           if (control.type === Types.Password) fieldType = Types.Password;
           if (control.type === Types.Datetime) fieldType = Types.Datetime;
-          const id = `_ng_dy_f_ctrl_n_${this.controlCounter}`;
+          const id = `${this.componentEnv.controlAttributesValues.idPrefix}${this.controlCounter}`;
           html += `
           <div ${this.componentEnv.controlAttributesKeys.id}="${id}${
             this.ID_FORM_GROUP
@@ -103,7 +106,7 @@ export class NgDynamicFormControlComponent implements OnInit {
           dropdownOptions.forEach((x) => {
             options += `<option ${this.componentEnv.controlAttributesKeys.value}=${x.value}>${x.key}</option>`;
           });
-          const id = `_ng_dy_f_ctrl_n_${this.controlCounter}`;
+          const id = `${this.componentEnv.controlAttributesValues.idPrefix}${this.controlCounter}`;
           html += `
           <div ${this.componentEnv.controlAttributesKeys.id}="${id}${
             this.ID_FORM_GROUP
@@ -139,7 +142,7 @@ export class NgDynamicFormControlComponent implements OnInit {
         } else if (control.type === Types.Radio) {
           let radioButtons = '';
           const radioButtonOptions = control.radioButtonOptions;
-          const id = `_ng_dy_f_ctrl_n_${this.controlCounter}`;
+          const id = `${this.componentEnv.controlAttributesValues.idPrefix}${this.controlCounter}`;
           radioButtonOptions.values.forEach((x) => {
             radioButtons += `
               <input
@@ -176,7 +179,7 @@ export class NgDynamicFormControlComponent implements OnInit {
           this.generatedControls.push(id);
         } else if (control.type === Types.Checkbox) {
           let checkboxes = '';
-          const id = `_ng_dy_f_ctrl_n_${this.controlCounter}`;
+          const id = `${this.componentEnv.controlAttributesValues.idPrefix}${this.controlCounter}`;
           checkboxes += `
               <input
                   ${this.componentEnv.controlAttributesKeys.id}="${id}${
