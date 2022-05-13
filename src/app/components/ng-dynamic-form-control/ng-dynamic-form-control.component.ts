@@ -56,6 +56,7 @@ export class NgDynamicFormControlComponent implements OnInit {
   constructor() {}
   ngOnInit(): void {}
   ngAfterViewInit(): void {
+    const attributes = this.componentEnv.controlAttributesKeys;
     let html = ``;
     const formElement: HTMLElement = document.getElementById(this.FORM_ELEMENT);
     if (formElement) {
@@ -76,70 +77,52 @@ export class NgDynamicFormControlComponent implements OnInit {
           if (control.type === Types.Datetime) fieldType = Types.Datetime;
           const id = `${this.componentEnv.controlAttributesValues.idPrefix}${this.controlCounter}`;
           html += `
-          <div ${this.componentEnv.controlAttributesKeys.id}="${id}${
-            this.ID_FORM_GROUP
-          }" ${this.componentEnv.controlAttributesKeys.class}="${
-            this.DIV_FORM_GROUP
-          } form-group ${controlBootstrapColSize} ">
+          <div ${attributes.id}="${id}${this.ID_FORM_GROUP}" ${
+            attributes.class
+          }="${this.DIV_FORM_GROUP} form-group ${controlBootstrapColSize} ">
               <label>${control.label}</label>
               <input
-                ${this.componentEnv.controlAttributesKeys.id}="${id}${
-            this.ID_FORM_CONTROL
-          }"
-                ${this.componentEnv.controlAttributesKeys.type}="${fieldType}"
-                ${this.componentEnv.controlAttributesKeys.name}="${
-            control.name
-          }"
-                ${this.componentEnv.controlAttributesKeys.value}="${
-            control.value
-          }"
+                ${attributes.id}="${id}${this.ID_FORM_CONTROL}"
+                ${attributes.type}="${fieldType}"
+                ${attributes.name}="${control.name}"
+                ${attributes.value}="${control.value}"
                 ${control.validators.required ? 'required' : ''}
-                ${this.componentEnv.controlAttributesKeys.validators}="
+                ${attributes.validators}="
                                 ${
                                   control.validators.required
                                     ? 'required:true'
                                     : ''
                                 }"
-                ${this.componentEnv.controlAttributesKeys.regex}="${
-            control.validators.regex
-          }"
-                ${this.componentEnv.controlAttributesKeys.class}="form-control">
+                ${attributes.regex}="${control.validators.regex}"
+                ${attributes.class}="form-control">
           </div>
         `;
           this.controlCounter++;
           this.generatedControls.push(id);
         } else if (control.type === Types.Dropdown) {
-          let options = `<option ${this.componentEnv.controlAttributesKeys.value}="" selected>Select</option>`;
+          let options = `<option ${attributes.value}="" selected>Select</option>`;
           const dropdownOptions = control.dropdownOptions;
           dropdownOptions.forEach((x) => {
-            options += `<option ${this.componentEnv.controlAttributesKeys.value}=${x.value}>${x.key}</option>`;
+            options += `<option ${attributes.value}=${x.value}>${x.key}</option>`;
           });
           const id = `${this.componentEnv.controlAttributesValues.idPrefix}${this.controlCounter}`;
           html += `
-          <div ${this.componentEnv.controlAttributesKeys.id}="${id}${
-            this.ID_FORM_GROUP
-          }" ${this.componentEnv.controlAttributesKeys.class}="${
-            this.DIV_FORM_GROUP
-          } form-group ${controlBootstrapColSize}">
+          <div ${attributes.id}="${id}${this.ID_FORM_GROUP}" ${
+            attributes.class
+          }="${this.DIV_FORM_GROUP} form-group ${controlBootstrapColSize}">
               <label>${control.label}</label>
               <select
-                ${this.componentEnv.controlAttributesKeys.id}="${id}${
-            this.ID_FORM_CONTROL
-          }"
-                ${this.componentEnv.controlAttributesKeys.name}="${
-            control.name
-          }"
+                ${attributes.id}="${id}${this.ID_FORM_CONTROL}"
+                ${attributes.name}="${control.name}"
                 ${control.validators.required ? 'required' : ''}
-                ${this.componentEnv.controlAttributesKeys.validators}="
+                ${attributes.validators}="
                                 ${
                                   control.validators.required
                                     ? 'required:true'
                                     : ''
                                 }"
-                ${this.componentEnv.controlAttributesKeys.regex}="${
-            control.validators.regex
-          }"
-                ${this.componentEnv.controlAttributesKeys.class}="form-control"
+                ${attributes.regex}="${control.validators.regex}"
+                ${attributes.class}="form-control"
               >
               ${options}
               </select>
@@ -154,19 +137,13 @@ export class NgDynamicFormControlComponent implements OnInit {
           radioButtonOptions.values.forEach((x) => {
             radioButtons += `
               <input
-                ${
-                  this.componentEnv.controlAttributesKeys.class
-                }="form-check-input"
-                ${this.componentEnv.controlAttributesKeys.id}="${id}${
-              this.ID_FORM_CONTROL
-            }"
-                ${this.componentEnv.controlAttributesKeys.type}=${
-              this.componentEnv.domElementTypes.radio
-            } 
-                ${this.componentEnv.controlAttributesKeys.name}=${control.name} 
-                ${this.componentEnv.controlAttributesKeys.value}=${x.value} 
+                ${attributes.class}="form-check-input"
+                ${attributes.id}="${id}${this.ID_FORM_CONTROL}"
+                ${attributes.type}=${this.componentEnv.domElementTypes.radio} 
+                ${attributes.name}=${control.name} 
+                ${attributes.value}=${x.value} 
                 ${control.validators.required ? 'required' : ''}
-                ${this.componentEnv.controlAttributesKeys.validators}="
+                ${attributes.validators}="
                                   ${
                                     control.validators.required
                                       ? 'required:true'
@@ -176,11 +153,11 @@ export class NgDynamicFormControlComponent implements OnInit {
             `;
           });
           html += `
-            <div ${this.componentEnv.controlAttributesKeys.id}="${id}${this.ID_FORM_GROUP}" ${this.componentEnv.controlAttributesKeys.class}="${this.DIV_FORM_GROUP} form-group col-md-4">
-            <label ${this.componentEnv.controlAttributesKeys.class}="form-check-label">
+            <div ${attributes.id}="${id}${this.ID_FORM_GROUP}" ${attributes.class}="${this.DIV_FORM_GROUP} form-group col-md-4">
+            <label ${attributes.class}="form-check-label">
               ${control.label}
             </label>
-              <div ${this.componentEnv.controlAttributesKeys.class}="form-check">
+              <div ${attributes.class}="form-check">
                 ${radioButtons}
               </div>
             </div>
@@ -192,20 +169,14 @@ export class NgDynamicFormControlComponent implements OnInit {
           const id = `${this.componentEnv.controlAttributesValues.idPrefix}${this.controlCounter}`;
           checkboxes += `
               <input
-                  ${this.componentEnv.controlAttributesKeys.id}="${id}${
-            this.ID_FORM_CONTROL
-          }"
-                  ${this.componentEnv.controlAttributesKeys.type}=${
+                  ${attributes.id}="${id}${this.ID_FORM_CONTROL}"
+                  ${attributes.type}=${
             this.componentEnv.domElementTypes.checkbox
           } 
-                  ${this.componentEnv.controlAttributesKeys.name}=${
-            control.name
-          } 
-                  ${this.componentEnv.controlAttributesKeys.value}=${
-            control.value
-          } 
+                  ${attributes.name}=${control.name} 
+                  ${attributes.value}=${control.value} 
                   ${control.validators.required ? 'required' : ''}
-                  ${this.componentEnv.controlAttributesKeys.validators}="
+                  ${attributes.validators}="
                                     ${
                                       control.validators.required
                                         ? 'required:true'
@@ -213,9 +184,9 @@ export class NgDynamicFormControlComponent implements OnInit {
                                     }"
                 />`;
           html += `
-          <div ${this.componentEnv.controlAttributesKeys.id}="${id}${this.ID_FORM_GROUP}" ${this.componentEnv.controlAttributesKeys.class}="${this.DIV_FORM_GROUP} form-group ${controlBootstrapColSize}">
+          <div ${attributes.id}="${id}${this.ID_FORM_GROUP}" ${attributes.class}="${this.DIV_FORM_GROUP} form-group ${controlBootstrapColSize}">
             ${checkboxes}
-            <label ${this.componentEnv.controlAttributesKeys.class}="form-check-label">${control.label}</label>
+            <label ${attributes.class}="form-check-label">${control.label}</label>
           </div>
         `;
           this.controlCounter++;
@@ -225,7 +196,7 @@ export class NgDynamicFormControlComponent implements OnInit {
       });
       html += `
         <p>
-          <button ${this.componentEnv.controlAttributesKeys.type}="submit" ${this.componentEnv.controlAttributesKeys.class}="mt-3 btn btn-primary">
+          <button ${attributes.type}="submit" ${attributes.class}="mt-3 btn btn-primary">
             Submit
           </button>
         </p>`;
