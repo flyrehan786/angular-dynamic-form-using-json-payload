@@ -4,6 +4,45 @@ import { IControl } from 'src/app/models/IControl';
 import { IDynamicControl } from 'src/app/models/IDynamicControl';
 import { IFormData } from 'src/app/models/IFormData';
 import { IValidationFailed } from 'src/app/models/IValidationFailed';
+
+interface IDOMElementTypes {
+  textbox: string;
+  password: string;
+  datetime: string;
+  dropdown: string;
+  radio: string;
+  checkbox: string;
+}
+interface IControlAttributeKeys {
+  id: string;
+  type: string;
+  name: string;
+  value: string;
+  class: string;
+  validators: string;
+  regex: string;
+}
+interface IControlAttributeValues {
+  idPrefix: string;
+}
+
+interface IFailed {
+  border: string;
+}
+
+interface IDefaultStyles {
+  border: string;
+}
+interface IStyle {
+  failed: IFailed;
+  default: IDefaultStyles;
+}
+interface IComponentEnvironment {
+  domElementTypes: IDOMElementTypes;
+  controlAttributesKeys: IControlAttributeKeys;
+  controlAttributesValues: IControlAttributeValues;
+  styles: IStyle;
+}
 @Component({
   selector: 'ng-dy-form',
   templateUrl: './ng-dynamic-form-control.component.html',
@@ -24,6 +63,7 @@ export class NgDynamicFormControlComponent implements OnInit {
   private ID_FORM_CONTROL = '_ng_dy_f_fc';
   private controlCounter = 10;
   private generatedControls: string[] = [];
+
   private componentEnv = {
     domElementTypes: {
       textbox: 'text',
