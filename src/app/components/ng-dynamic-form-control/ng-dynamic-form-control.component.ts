@@ -160,7 +160,9 @@ export class NgDynamicFormControlComponent implements OnInit {
                 ${this.componentEnv.controlAttributesKeys.id}="${id}${
               this.ID_FORM_CONTROL
             }"
-                ${this.componentEnv.controlAttributesKeys.type}='radio' 
+                ${this.componentEnv.controlAttributesKeys.type}=${
+              this.componentEnv.domElementTypes.radio
+            } 
                 ${this.componentEnv.controlAttributesKeys.name}=${control.name} 
                 ${this.componentEnv.controlAttributesKeys.value}=${x.value} 
                 ${control.validators.required ? 'required' : ''}
@@ -193,7 +195,9 @@ export class NgDynamicFormControlComponent implements OnInit {
                   ${this.componentEnv.controlAttributesKeys.id}="${id}${
             this.ID_FORM_CONTROL
           }"
-                  ${this.componentEnv.controlAttributesKeys.type}='checkbox' 
+                  ${this.componentEnv.controlAttributesKeys.type}=${
+            this.componentEnv.domElementTypes.checkbox
+          } 
                   ${this.componentEnv.controlAttributesKeys.name}=${
             control.name
           } 
