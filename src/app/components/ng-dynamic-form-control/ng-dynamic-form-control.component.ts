@@ -1,9 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Types } from 'src/app/enums/Types';
-import { IControl } from 'src/app/models/IControl';
-import { IDynamicControl } from 'src/app/models/IDynamicControl';
-import { IFormData } from 'src/app/models/IFormData';
-import { IValidationFailed } from 'src/app/models/IValidationFailed';
+
+import { IControl } from 'src/app/components/ng-dynamic-form-control/deps/models/IControl';
+import { IDynamicControl } from 'src/app/components/ng-dynamic-form-control/deps/models/IDynamicControl';
+import { IFormData } from 'src/app/components/ng-dynamic-form-control/deps/models/IFormData';
+import { IValidationFailed } from 'src/app/components/ng-dynamic-form-control/deps/models/IValidationFailed';
+import { Types } from './deps/enums/Types';
 
 interface IDOMElementTypes {
   textbox: string;
