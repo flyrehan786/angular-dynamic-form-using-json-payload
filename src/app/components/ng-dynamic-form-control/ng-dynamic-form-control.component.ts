@@ -25,6 +25,14 @@ export class NgDynamicFormControlComponent implements OnInit {
   private controlCounter = 10;
   private generatedControls: string[] = [];
   private componentEnv = {
+    domElementTypes: {
+      textbox: 'text',
+      password: 'password',
+      datetime: 'datetime-local',
+      dropdown: 'select-one',
+      radio: 'radio',
+      checkbox: 'checkbox',
+    },
     controlAttributesKeys: {
       id: 'id',
       type: 'type',
@@ -249,74 +257,115 @@ export class NgDynamicFormControlComponent implements OnInit {
             this.generatedControls[i] + this.ID_FORM_CONTROL
           );
           const validators = inputElement.getAttribute(
-            '_dynamic_control_validators'
+            this.componentEnv.controlAttributesKeys.validators
           );
           if (
-            inputElement['type'] === 'text' ||
-            inputElement['type'] === 'password' ||
-            inputElement['type'] === 'datetime-local' ||
-            inputElement['type'] === 'select-one'
+            inputElement[this.componentEnv.controlAttributesKeys.type] ===
+              this.componentEnv.domElementTypes.textbox ||
+            inputElement[this.componentEnv.controlAttributesKeys.type] ===
+              this.componentEnv.domElementTypes.password ||
+            inputElement[this.componentEnv.controlAttributesKeys.type] ===
+              this.componentEnv.domElementTypes.datetime ||
+            inputElement[this.componentEnv.controlAttributesKeys.type] ===
+              this.componentEnv.domElementTypes.dropdown
           ) {
             const splited = validators.split(',');
             const regularExpression = inputElement.getAttribute(
-              '_dynamic_control_regex'
+              this.componentEnv.controlAttributesKeys.regex
             );
             const analyzed: IValidationFailed[] = this.analyze(
               splited,
-              inputElement['value'],
-              inputElement.getAttribute('name'),
-              inputElement.getAttribute('id'),
+              inputElement[this.componentEnv.controlAttributesKeys.value],
+              inputElement.getAttribute(
+                this.componentEnv.controlAttributesKeys.name
+              ),
+              inputElement.getAttribute(
+                this.componentEnv.controlAttributesKeys.id
+              ),
               regularExpression
             );
             if (analyzed.length > 0) {
               extracted.errors.push(analyzed[0]);
             } else {
               extracted.data.push({
-                title: inputElement.getAttribute('name'),
-                value: inputElement['value'],
+                title: inputElement.getAttribute(
+                  this.componentEnv.controlAttributesKeys.name
+                ),
+                value:
+                  inputElement[this.componentEnv.controlAttributesKeys.value],
                 validated: true,
-                id: inputElement.getAttribute('id'),
+                id: inputElement.getAttribute(
+                  this.componentEnv.controlAttributesKeys.id
+                ),
               });
             }
-          } else if (inputElement['type'] === 'radio') {
+          } else if (
+            inputElement[this.componentEnv.controlAttributesKeys.type] ===
+            this.componentEnv.domElementTypes.radio
+          ) {
             const checked = document.querySelector(
-              `input[name=${inputElement.getAttribute('name')}]:checked`
+              `input[${
+                this.componentEnv.controlAttributesKeys.name
+              }=${inputElement.getAttribute(
+                this.componentEnv.controlAttributesKeys.name
+              )}]:checked`
             );
-            const value = checked ? checked['value'] : undefined;
+            const value = checked
+              ? checked[this.componentEnv.controlAttributesKeys.value]
+              : undefined;
             const splited = validators.split(',');
             const analyzed: IValidationFailed[] = this.analyze(
               splited,
               value,
-              inputElement.getAttribute('name'),
-              inputElement.getAttribute('id')
+              inputElement.getAttribute(
+                this.componentEnv.controlAttributesKeys.name
+              ),
+              inputElement.getAttribute(
+                this.componentEnv.controlAttributesKeys.id
+              )
             );
             if (analyzed.length > 0) {
               extracted.errors.push(analyzed[0]);
             } else {
               extracted.data.push({
-                title: inputElement.getAttribute('name'),
+                title: inputElement.getAttribute(
+                  this.componentEnv.controlAttributesKeys.name
+                ),
                 value: value,
                 validated: true,
-                id: inputElement.getAttribute('id'),
+                id: inputElement.getAttribute(
+                  this.componentEnv.controlAttributesKeys.id
+                ),
               });
             }
-          } else if (inputElement['type'] === Types.Checkbox) {
+          } else if (
+            inputElement[this.componentEnv.controlAttributesKeys.type] ===
+            Types.Checkbox
+          ) {
             const checked = inputElement['checked'];
             const splited = validators.split(',');
             const analyzed: IValidationFailed[] = this.analyze(
               splited,
               checked,
-              inputElement.getAttribute('name'),
-              inputElement.getAttribute('id')
+              inputElement.getAttribute(
+                this.componentEnv.controlAttributesKeys.name
+              ),
+              inputElement.getAttribute(
+                this.componentEnv.controlAttributesKeys.id
+              )
             );
             if (analyzed.length > 0) {
               extracted.errors.push(analyzed[0]);
             } else {
               extracted.data.push({
-                title: inputElement.getAttribute('name'),
+                title: inputElement.getAttribute(
+                  this.componentEnv.controlAttributesKeys.name
+                ),
                 value: checked,
                 validated: true,
-                id: inputElement.getAttribute('id'),
+                id: inputElement.getAttribute(
+                  this.componentEnv.controlAttributesKeys.id
+                ),
               });
             }
           }
