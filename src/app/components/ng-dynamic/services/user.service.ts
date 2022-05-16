@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Types } from '../components/ng-dynamic-form-control/deps/enums/Types';
-import { IDynamicControl } from '../components/ng-dynamic-form-control/deps/models/IDynamicControl';
+import { Types } from '../deps/enums/Types';
+import { IDynamicControl } from '../deps/models/IDynamicControl';
 @Injectable({
   providedIn: 'root',
 })

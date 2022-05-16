@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { IFormData } from './components/ng-dynamic-form-control/deps/models/IFormData';
-import { UserService } from './services/user.service';
+import { IFormData } from './components/ng-dynamic/deps/models/IFormData';
+import { UserService } from './components/ng-dynamic/services/user.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
