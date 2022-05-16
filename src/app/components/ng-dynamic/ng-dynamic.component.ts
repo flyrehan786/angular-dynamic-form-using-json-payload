@@ -59,7 +59,7 @@ export class NgDynamicComponent implements OnInit {
   private DIV_FORM_GROUP = '_ng_dy_f_div';
   private ID_FORM_GROUP = '_ng_dy_f_fg';
   private ID_FORM_CONTROL = '_ng_dy_f_fc';
-  private controlCounter = 10;
+  private controlCounterStartFrom = 1000;
   private generatedControls: string[] = [];
 
   private componentEnv = {
@@ -113,7 +113,7 @@ export class NgDynamicComponent implements OnInit {
           if (control.type === Types.Textbox) fieldType = Types.Textbox;
           if (control.type === Types.Password) fieldType = Types.Password;
           if (control.type === Types.Datetime) fieldType = Types.Datetime;
-          const id = `${this.componentEnv.controlAttributesValues.idPrefix}${this.controlCounter}`;
+          const id = `${this.componentEnv.controlAttributesValues.idPrefix}${this.controlCounterStartFrom}`;
           html += `
           <div ${attributes.id}="${id}${this.ID_FORM_GROUP}" ${
             attributes.class
@@ -135,7 +135,7 @@ export class NgDynamicComponent implements OnInit {
                 ${attributes.class}="form-control">
           </div>
         `;
-          this.controlCounter++;
+          this.controlCounterStartFrom++;
           this.generatedControls.push(id);
         } else if (control.type === Types.Dropdown) {
           let options = `<option ${attributes.value}="" selected>Select</option>`;
@@ -143,7 +143,7 @@ export class NgDynamicComponent implements OnInit {
           dropdownOptions.forEach((x) => {
             options += `<option ${attributes.value}=${x.value}>${x.key}</option>`;
           });
-          const id = `${this.componentEnv.controlAttributesValues.idPrefix}${this.controlCounter}`;
+          const id = `${this.componentEnv.controlAttributesValues.idPrefix}${this.controlCounterStartFrom}`;
           html += `
           <div ${attributes.id}="${id}${this.ID_FORM_GROUP}" ${
             attributes.class
@@ -166,12 +166,12 @@ export class NgDynamicComponent implements OnInit {
               </select>
           </div>
       `;
-          this.controlCounter++;
+          this.controlCounterStartFrom++;
           this.generatedControls.push(id);
         } else if (control.type === Types.Radio) {
           let radioButtons = '';
           const radioButtonOptions = control.radioButtonOptions;
-          const id = `${this.componentEnv.controlAttributesValues.idPrefix}${this.controlCounter}`;
+          const id = `${this.componentEnv.controlAttributesValues.idPrefix}${this.controlCounterStartFrom}`;
           radioButtonOptions.values.forEach((x) => {
             radioButtons += `
               <input
@@ -200,11 +200,11 @@ export class NgDynamicComponent implements OnInit {
               </div>
             </div>
         `;
-          this.controlCounter++;
+          this.controlCounterStartFrom++;
           this.generatedControls.push(id);
         } else if (control.type === Types.Checkbox) {
           let checkboxes = '';
-          const id = `${this.componentEnv.controlAttributesValues.idPrefix}${this.controlCounter}`;
+          const id = `${this.componentEnv.controlAttributesValues.idPrefix}${this.controlCounterStartFrom}`;
           checkboxes += `
               <input
                   ${attributes.id}="${id}${this.ID_FORM_CONTROL}"
@@ -227,7 +227,7 @@ export class NgDynamicComponent implements OnInit {
             <label ${attributes.class}="form-check-label">${control.label}</label>
           </div>
         `;
-          this.controlCounter++;
+          this.controlCounterStartFrom++;
           this.generatedControls.push(id);
         } else {
         }
