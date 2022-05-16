@@ -1,10 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-
-import { IControl } from 'src/app/components/ng-dynamic-form-control/deps/models/IControl';
-import { IDynamicControl } from 'src/app/components/ng-dynamic-form-control/deps/models/IDynamicControl';
-import { IFormData } from 'src/app/components/ng-dynamic-form-control/deps/models/IFormData';
-import { IValidationFailed } from 'src/app/components/ng-dynamic-form-control/deps/models/IValidationFailed';
 import { Types } from './deps/enums/Types';
+import { IControl } from './deps/models/IControl';
+import { IDynamicControl } from './deps/models/IDynamicControl';
+import { IFormData } from './deps/models/IFormData';
+import { IValidationFailed } from './deps/models/IValidationFailed';
 
 interface IDOMElementTypes {
   textbox: string;
@@ -26,11 +25,9 @@ interface IControlAttributeKeys {
 interface IControlAttributeValues {
   idPrefix: string;
 }
-
 interface IFailed {
   border: string;
 }
-
 interface IDefaultStyles {
   border: string;
 }
@@ -46,10 +43,10 @@ interface IComponentEnvironment {
 }
 @Component({
   selector: 'ng-dy-form',
-  templateUrl: './ng-dynamic-form-control.component.html',
-  styleUrls: ['./ng-dynamic-form-control.component.css'],
+  templateUrl: './ng-dynamic.component.html',
+  styleUrls: ['./ng-dynamic.component.css'],
 })
-export class NgDynamicFormControlComponent implements OnInit {
+export class NgDynamicComponent implements OnInit {
   /** To enable or disable component logs */
   @Input() debugLogger: string;
   /** Top level heading for form */

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IFormData } from './models/IFormData';
+import { IFormData } from './components/ng-dynamic-form-control/deps/models/IFormData';
 import { UserService } from './services/user.service';
 @Component({
   selector: 'app-root',
