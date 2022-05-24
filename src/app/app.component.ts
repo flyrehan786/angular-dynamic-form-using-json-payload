@@ -6,9 +6,10 @@ import { UserService } from './components/ng-dynamic/services/user.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'df-dynamic-form';
   constructor(public service: UserService) {}
+  ngOnInit(): void {}
   onFormSubmit(event: IFormData) {
     if (event.formIsValid === false) {
       alert('Invalid form submitted.');

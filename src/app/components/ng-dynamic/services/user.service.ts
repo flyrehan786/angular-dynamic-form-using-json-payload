@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { EventEmitter } from 'events';
 import { Types } from '../deps/enums/Types';
 import { IDynamicControl } from '../deps/models/IDynamicControl';
 @Injectable({

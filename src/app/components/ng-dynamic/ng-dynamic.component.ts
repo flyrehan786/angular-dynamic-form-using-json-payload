@@ -4,6 +4,7 @@ import { IControl } from './deps/models/IControl';
 import { IDynamicControl } from './deps/models/IDynamicControl';
 import { IFormData } from './deps/models/IFormData';
 import { IValidationFailed } from './deps/models/IValidationFailed';
+import { UserService } from './services/user.service';
 
 interface IDOMElementTypes {
   textbox: string;
@@ -465,5 +466,9 @@ export class NgDynamicComponent implements OnInit {
     if (this.debugLogger) {
       console.log(message);
     } else console.log('[Component-Debug-Logs] Debug Logger is disabled.');
+  }
+
+  private formChange() {
+    console.log('form change called.');
   }
 }
