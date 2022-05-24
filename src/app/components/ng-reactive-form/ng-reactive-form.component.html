@@ -1,0 +1,14 @@
+<div class="container">
+    <h1>Dynamic Angular Reactive Form</h1>
+    <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+        <div *ngFor="let data of formData">
+            <div class="form-group">
+                <label for="">{{ data.label }}</label>
+                <input type="text" class="form-control" formControlName="{{ data.label }}"
+                    (keyup)="validateFormControl(data.label)">
+            </div>
+
+            {{ data | json }}
+        </div>
+    </form>
+</div>

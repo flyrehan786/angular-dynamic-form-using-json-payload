@@ -467,8 +467,4 @@ export class NgDynamicComponent implements OnInit {
       console.log(message);
     } else console.log('[Component-Debug-Logs] Debug Logger is disabled.');
   }
-
-  private formChange() {
-    console.log('form change called.');
-  }
 }
