@@ -6,6 +6,7 @@ import { FormControl, FormGroup } from '@angular/forms';
   styleUrls: ['./ng-reactive-form.component.css'],
 })
 export class NgReactiveFormComponent implements OnInit {
+  // This should be comming from api.
   formData: any[] = [
     { label: 'firstName', type: 'text', options: [] },
     {
@@ -18,7 +19,7 @@ export class NgReactiveFormComponent implements OnInit {
         { id: 4, value: 4 },
       ],
     },
-    { label: 'email' },
+    { label: 'email', type: 'text', options: [] },
   ];
   address: boolean = false;
   contactForm: FormGroup;
@@ -37,5 +38,10 @@ export class NgReactiveFormComponent implements OnInit {
     let control = this.contactForm.get('firstName');
     console.log('dynamic reactive form control');
     console.log(control);
+  }
+
+  onSubmit() {
+    console.log('Form Submitted.');
+    console.log(this.contactForm.value);
   }
 }
