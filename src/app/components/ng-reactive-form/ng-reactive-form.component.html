@@ -1,6 +1,6 @@
 <div class="container">
     <h1>Dynamic Angular Reactive Form</h1>
-    <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
         <div *ngFor="let data of formData">
             <div *ngIf="data.type === 'text'" class="form-group">
                 <label for="">{{ data.label }}</label>
