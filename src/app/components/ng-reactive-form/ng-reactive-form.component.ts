@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-
 @Component({
   selector: 'app-ng-reactive-form',
   templateUrl: './ng-reactive-form.component.html',
@@ -8,8 +7,17 @@ import { FormControl, FormGroup } from '@angular/forms';
 })
 export class NgReactiveFormComponent implements OnInit {
   formData: any[] = [
-    { label: 'firstName' },
-    { label: 'lastName' },
+    { label: 'firstName', type: 'text', options: [] },
+    {
+      label: 'lastName',
+      type: 'dropdown',
+      options: [
+        { id: 1, value: 1 },
+        { id: 2, value: 2 },
+        { id: 3, value: 3 },
+        { id: 4, value: 4 },
+      ],
+    },
     { label: 'email' },
   ];
   address: boolean = false;
@@ -19,11 +27,6 @@ export class NgReactiveFormComponent implements OnInit {
   }
   setSettings(formData, address?: boolean) {
     let form = {};
-    // if the user locates from specfic location.
-    if (this.address) {
-      this.formData.push({ label: 'Address' });
-    }
-    // for all users.
     for (let i = 0; i < this.formData.length; i++) {
       form[formData[i]['label']] = new FormControl('');
     }

@@ -2,10 +2,17 @@
     <h1>Dynamic Angular Reactive Form</h1>
     <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
         <div *ngFor="let data of formData">
-            <div class="form-group">
+            <div *ngIf="data.type === 'text'" class="form-group">
                 <label for="">{{ data.label }}</label>
                 <input type="text" class="form-control" formControlName="{{ data.label }}"
                     (keyup)="validateFormControl(data.label)">
+            </div>
+            <div *ngIf="data.type === 'dropdown'" class="form-group">
+                <label for="">{{ data.label }}</label>
+                <select formControlName="{{ data.label }}" class="form-control">
+                    <option value="">Select</option>
+                    <option [value]="o.id" *ngFor="let o of data.options">{{ o.value }}</option>
+                </select>
             </div>
 
             {{ data | json }}
