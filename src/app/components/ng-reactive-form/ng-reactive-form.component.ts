@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validator, Validators } from '@angular/forms';
 import { UserService } from '../ng-dynamic/services/user.service';
 @Component({
   selector: 'app-ng-reactive-form',
@@ -18,7 +18,13 @@ export class NgReactiveFormComponent implements OnInit {
   setSettings(data) {
     let form = {};
     for (let i = 0; i < this.data.length; i++) {
-      form[data[i]['label']] = new FormControl('');
+      if (form[data[i]['regex']].length > 0) {
+        const regex: string = form[data[i]['regex']];
+        form[data[i]['label']] = new FormControl('', [
+          Validators.required,
+          Validators.pattern(regex),
+        ]);
+      } else form[data[i]['label']] = new FormControl('', Validators.required);
     }
     this.form = new FormGroup(form);
     console.log(this.form);

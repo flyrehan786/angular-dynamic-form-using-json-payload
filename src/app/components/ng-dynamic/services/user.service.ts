@@ -132,7 +132,7 @@ export class UserService {
   // For Reactive Form.
   getReactiveFormControls() {
     return [
-      { label: 'firstName', type: 'text', options: [] },
+      { label: 'firstName', type: 'text', options: [], regex: '' },
       {
         label: 'lastName',
         type: 'dropdown',
@@ -142,8 +142,9 @@ export class UserService {
           { id: 3, value: 3 },
           { id: 4, value: 4 },
         ],
+        regex: '',
       },
-      { label: 'email', type: 'text', options: [] },
+      { label: 'email', type: 'text', options: [], regex: '' },
     ];
   }
 }
