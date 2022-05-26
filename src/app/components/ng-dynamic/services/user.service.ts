@@ -128,4 +128,22 @@ export class UserService {
     };
     return _controls;
   }
+
+  // For Reactive Form.
+  getReactiveFormControls() {
+    return [
+      { label: 'firstName', type: 'text', options: [] },
+      {
+        label: 'lastName',
+        type: 'dropdown',
+        options: [
+          { id: 1, value: 1 },
+          { id: 2, value: 2 },
+          { id: 3, value: 3 },
+          { id: 4, value: 4 },
+        ],
+      },
+      { label: 'email', type: 'text', options: [] },
+    ];
+  }
 }

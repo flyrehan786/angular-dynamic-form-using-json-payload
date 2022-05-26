@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { UserService } from '../ng-dynamic/services/user.service';
 @Component({
   selector: 'app-ng-reactive-form',
   templateUrl: './ng-reactive-form.component.html',
@@ -7,23 +8,11 @@ import { FormControl, FormGroup } from '@angular/forms';
 })
 export class NgReactiveFormComponent implements OnInit {
   // This should be coming from api.
-  data: any[] = [
-    { label: 'firstName', type: 'text', options: [] },
-    {
-      label: 'lastName',
-      type: 'dropdown',
-      options: [
-        { id: 1, value: 1 },
-        { id: 2, value: 2 },
-        { id: 3, value: 3 },
-        { id: 4, value: 4 },
-      ],
-    },
-    { label: 'email', type: 'text', options: [] },
-  ];
+  data: any[] = [];
   address: boolean = false;
   form: FormGroup;
-  constructor() {
+  constructor(private service: UserService) {
+    this.data = this.service.getReactiveFormControls();
     this.setSettings(this.data);
   }
   setSettings(data) {
@@ -32,6 +21,7 @@ export class NgReactiveFormComponent implements OnInit {
       form[data[i]['label']] = new FormControl('');
     }
     this.form = new FormGroup(form);
+    console.log(this.form);
   }
   ngOnInit(): void {}
   validateFormControl(controlName: string) {

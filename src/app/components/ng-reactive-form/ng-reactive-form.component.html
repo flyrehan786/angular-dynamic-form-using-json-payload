@@ -1,23 +1,21 @@
 <div class="container">
     <h1>Dynamic Angular Reactive Form</h1>
+    {{ formData }}
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
-        <div *ngFor="let data of formData">
-            <div *ngIf="data.type === 'text'" class="form-group">
-                <label for="">{{ data.label }}</label>
-                <input type="text" class="form-control" formControlName="{{ data.label }}"
-                    (keyup)="validateFormControl(data.label)">
+        <div *ngFor="let d of data">
+            <div *ngIf="d.type === 'text'" class="form-group">
+                <label for="">{{ d.label }}</label>
+                <input type="text" class="form-control" formControlName="{{ d.label }}"
+                    (keyup)="validateFormControl(d.label)">
             </div>
-            <div *ngIf="data.type === 'dropdown'" class="form-group">
-                <label for="">{{ data.label }}</label>
-                <select formControlName="{{ data.label }}" class="form-control">
+            <div *ngIf="d.type === 'dropdown'" class="form-group">
+                <label for="">{{ d.label }}</label>
+                <select formControlName="{{ d.label }}" class="form-control">
                     <option value="">Select</option>
-                    <option [value]="o.id" *ngFor="let o of data.options">{{ o.value }}</option>
+                    <option [value]="o.id" *ngFor="let o of d.options">{{ o.value }}</option>
                 </select>
             </div>
-
-            {{ data | json }}
-
-            <button class="btn btn-primary">Submit</button>
         </div>
+        <button class="btn btn-primary">Submit</button>
     </form>
 </div>
