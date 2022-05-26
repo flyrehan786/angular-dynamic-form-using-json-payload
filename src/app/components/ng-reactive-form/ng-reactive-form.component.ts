@@ -18,8 +18,9 @@ export class NgReactiveFormComponent implements OnInit {
   setSettings(data) {
     let form = {};
     for (let i = 0; i < this.data.length; i++) {
-      if (form[data[i]['regex']].length > 0) {
-        const regex: string = form[data[i]['regex']];
+      console.log(data[i]);
+      if (data[i]['regex'].length > 0) {
+        const regex: string = data[i]['regex'];
         form[data[i]['label']] = new FormControl('', [
           Validators.required,
           Validators.pattern(regex),
