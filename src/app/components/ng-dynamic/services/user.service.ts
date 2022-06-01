@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { EventEmitter } from 'events';
 import { Types } from '../deps/enums/Types';
 import { IDynamicControl } from '../deps/models/IDynamicControl';
+import { IReactiveFormControl } from '../../ng-reactive-form/deps/models/IReactiveFormControl';
 @Injectable({
   providedIn: 'root',
 })
@@ -130,8 +130,9 @@ export class UserService {
   }
 
   // For Reactive Form.
+
   getReactiveFormControls() {
-    return [
+    let controls: IReactiveFormControl[] = [
       { label: 'firstName', type: 'text', options: [], regex: '' },
       {
         label: 'lastName',
@@ -146,5 +147,6 @@ export class UserService {
       },
       { label: 'email', type: 'text', options: [], regex: '' },
     ];
+    return controls;
   }
 }

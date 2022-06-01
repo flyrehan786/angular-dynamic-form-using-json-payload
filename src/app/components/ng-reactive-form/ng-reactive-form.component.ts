@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validator, Validators } from '@angular/forms';
 import { UserService } from '../ng-dynamic/services/user.service';
+import { IReactiveFormControl } from '../ng-reactive-form/deps/models/IReactiveFormControl';
 @Component({
   selector: 'app-ng-reactive-form',
   templateUrl: './ng-reactive-form.component.html',
@@ -8,7 +9,7 @@ import { UserService } from '../ng-dynamic/services/user.service';
 })
 export class NgReactiveFormComponent implements OnInit {
   // This should be coming from api.
-  data: any[] = [];
+  data: IReactiveFormControl[] = [];
   address: boolean = false;
   form: FormGroup;
   constructor(private service: UserService) {
@@ -18,7 +19,6 @@ export class NgReactiveFormComponent implements OnInit {
   setSettings(data) {
     let form = {};
     for (let i = 0; i < this.data.length; i++) {
-      console.log(data[i]);
       if (data[i]['regex'].length > 0) {
         const regex: string = data[i]['regex'];
         form[data[i]['label']] = new FormControl('', [
@@ -28,7 +28,6 @@ export class NgReactiveFormComponent implements OnInit {
       } else form[data[i]['label']] = new FormControl('', Validators.required);
     }
     this.form = new FormGroup(form);
-    console.log(this.form);
   }
   ngOnInit(): void {}
   validateFormControl(controlName: string) {
