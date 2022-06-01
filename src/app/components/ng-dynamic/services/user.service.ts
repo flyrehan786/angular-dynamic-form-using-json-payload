@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Types } from '../deps/enums/Types';
 import { IDynamicControl } from '../deps/models/IDynamicControl';
-import { IReactiveFormControl } from '../../ng-reactive-form/deps/models/IReactiveFormControl';
 @Injectable({
   providedIn: 'root',
 })
@@ -127,26 +126,5 @@ export class UserService {
       ],
     };
     return _controls;
-  }
-
-  // For Reactive Form.
-
-  getReactiveFormControls() {
-    let controls: IReactiveFormControl[] = [
-      { label: 'firstName', type: 'text', options: [], regex: '' },
-      {
-        label: 'lastName',
-        type: 'dropdown',
-        options: [
-          { id: 1, value: 1 },
-          { id: 2, value: 2 },
-          { id: 3, value: 3 },
-          { id: 4, value: 4 },
-        ],
-        regex: '',
-      },
-      { label: 'email', type: 'text', options: [], regex: '' },
-    ];
-    return controls;
   }
 }
