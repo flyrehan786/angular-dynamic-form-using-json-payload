@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validator, Validators } from '@angular/forms';
-import { UserService } from '../ng-dynamic/services/user.service';
 import { IReactiveFormControl } from '../ng-reactive-form/deps/models/IReactiveFormControl';
+import { UserService } from './services/user.service';
 @Component({
   selector: 'app-ng-reactive-form',
   templateUrl: './ng-reactive-form.component.html',
