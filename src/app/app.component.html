@@ -2,4 +2,4 @@
     [input_dynamicControls]="this.service.getDynamicControl()" (onSubmit)="onFormSubmit($event)">
 </ng-dy-form>
 <hr />
-<app-ng-reactive-form></app-ng-reactive-form>
+<app-ng-reactive-form [data]="this.reactiveFormService.getReactiveFormControl()"></app-ng-reactive-form>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validator, Validators } from '@angular/forms';
 import { IReactiveFormControl } from '../ng-reactive-form/deps/models/IReactiveFormControl';
 import { UserService } from './services/user.service';
@@ -9,13 +9,10 @@ import { UserService } from './services/user.service';
 })
 export class NgReactiveFormComponent implements OnInit {
   // This should be coming from api.
-  data: IReactiveFormControl[] = [];
+  @Input() data: IReactiveFormControl[] = [];
   address: boolean = false;
   form: FormGroup;
-  constructor(private service: UserService) {
-    this.data = this.service.getReactiveFormControl();
-    this.setSettings(this.data);
-  }
+  constructor(private service: UserService) {}
   setSettings(data) {
     let form = {};
     for (let i = 0; i < this.data.length; i++) {
@@ -29,7 +26,9 @@ export class NgReactiveFormComponent implements OnInit {
     }
     this.form = new FormGroup(form);
   }
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.setSettings(this.data);
+  }
   validateFormControl(controlName: string) {
     let control = this.form.get(controlName);
     console.log('dynamic reactive form control');
