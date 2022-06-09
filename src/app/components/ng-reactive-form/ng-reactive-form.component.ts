@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validator, Validators } from '@angular/forms';
-import { UserService } from '../ng-dynamic/services/user.service';
 import { IReactiveFormControl } from '../ng-reactive-form/deps/models/IReactiveFormControl';
+import { UserService } from './services/user.service';
 @Component({
   selector: 'app-ng-reactive-form',
   templateUrl: './ng-reactive-form.component.html',
@@ -13,7 +13,7 @@ export class NgReactiveFormComponent implements OnInit {
   address: boolean = false;
   form: FormGroup;
   constructor(private service: UserService) {
-    this.data = this.service.getReactiveFormControls();
+    this.data = this.service.getReactiveFormControl();
     this.setSettings(this.data);
   }
   setSettings(data) {
