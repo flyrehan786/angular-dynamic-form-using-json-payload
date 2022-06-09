@@ -16,6 +16,12 @@ export class UserService {
         ],
         regex: '',
       },
+      {
+        label: 'comment',
+        type: 'textArea',
+        option: [],
+        regex: '',
+      },
     ];
   }
 }

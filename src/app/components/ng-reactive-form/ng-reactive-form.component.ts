@@ -12,7 +12,7 @@ export class NgReactiveFormComponent implements OnInit {
   @Input() data: IReactiveFormControl[] = [];
   address: boolean = false;
   form: FormGroup;
-  constructor(private service: UserService) {}
+  constructor() {}
   setSettings(data) {
     let form = {};
     for (let i = 0; i < this.data.length; i++) {

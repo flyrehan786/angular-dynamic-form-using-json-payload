@@ -15,6 +15,10 @@
                     <option [value]="o.id" *ngFor="let o of d.options">{{ o.value }}</option>
                 </select>
             </div>
+            <div *ngIf="d.type ==='textArea'" class="form-group">
+                <label for="">{{ d.label }}</label>
+                <textarea formControlName="{{ d.label }}" cols="30" rows="10" class="form-control"></textarea>
+            </div>
         </div>
         <button class="btn btn-primary">Submit</button>
     </form>
