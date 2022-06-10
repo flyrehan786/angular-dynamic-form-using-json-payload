@@ -19,6 +19,16 @@
                 <label for="">{{ d.label }}</label>
                 <textarea formControlName="{{ d.label }}" cols="30" rows="10" class="form-control"></textarea>
             </div>
+            <div *ngIf="d.type === 'checkbox'">
+                Checkboxes.
+            </div>
+            <div *ngIf="d.type === 'radio'" class="form-group">
+                <label for="">{{ d.label }}</label>
+                <br>
+                <span *ngFor="let o of d.options">
+                    <input type="radio" formControlName="{{ d.label }}" [value]="o.id"> {{ o.value }}
+                </span>
+            </div>
         </div>
         <button class="btn btn-primary">Submit</button>
     </form>

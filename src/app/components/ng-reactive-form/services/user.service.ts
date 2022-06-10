@@ -22,6 +22,15 @@ export class UserService {
         option: [],
         regex: '',
       },
+      {
+        label: 'Going',
+        type: 'radio',
+        options: [
+          { id: 1, value: 1 },
+          { id: 2, value: 2 },
+        ],
+        regex: '',
+      },
     ];
   }
 }
